@@ -1,5 +1,7 @@
 package kaa.controler.view;
 
+import kaa.view.frame.MainFrame;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Mr.Green
@@ -8,4 +10,5 @@ package kaa.controler.view;
  * To change this template use File | Settings | File Templates.
  */
 public class ElementControlGeter {
+    protected static MainFrame frame = new MainFrame();
 }

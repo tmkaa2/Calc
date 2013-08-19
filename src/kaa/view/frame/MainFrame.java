@@ -1,5 +1,6 @@
 package kaa.view.frame;
 
+import kaa.controler.button.ButtonListener;
 import kaa.view.panel.MainPanel;
 
 import javax.swing.*;
@@ -17,11 +18,24 @@ public class MainFrame extends JFrame{
     public MainFrame(){
         setTitle("String calculator[TMKAA]");
         setSize(350, 150);
-        panel = new MainPanel( labelExpression,labelMsgError,jtfExpression,jtfResult,jtaError, result);
 
+
+
+        labelExpression = new JLabel("Expression: ", JLabel.TRAILING);
+        labelMsgError = new JLabel("Error msg: ", JLabel.TRAILING);
+        setJtfExpression(new JTextField(30));
+        jtfResult = new JTextField(30);
+        jtaError = new JTextArea(4,30);
+        result = new JButton("result");
+        JScrollPane infoScroller = new JScrollPane(jtaError);
+        infoScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        result.addActionListener(new ButtonListener());
+
+
+        panel = new MainPanel( labelExpression,labelMsgError, getJtfExpression(),jtfResult,infoScroller, result);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setVisible(true);
     }
 
     public JLabel getLabelMsgError() {
@@ -62,5 +76,13 @@ public class MainFrame extends JFrame{
 
     public void setPanel(MainPanel panel) {
         this.panel = panel;
+    }
+
+    public JTextField getJtfExpression() {
+        return jtfExpression;
+    }
+
+    public void setJtfExpression(JTextField jtfExpression) {
+        this.jtfExpression = jtfExpression;
     }
 }

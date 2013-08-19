@@ -40,8 +40,8 @@ public class TestString {
                }
            }
            if(counterErrors == false){
-               System.out.println("\nWe have a problem! Expression is not correct!");
-               System.out.println("\nWith this symbol: {"+rezz[i]+"}");
+               System.err.println("\nWe have a problem! Expression is not correct!");
+               System.err.println("\nWith this symbol: {"+rezz[i]+"}");
                i=rezz.length;
                break;
            }
