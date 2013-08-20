@@ -14,7 +14,10 @@ import kaa.controler.analiz.charters.S;
 import kaa.controler.analiz.charters.Y;
 import kaa.controler.analiz.str.RefactoringStrings;
 import kaa.controler.analiz.str.SplitExpressionAtArrayList;
+import kaa.model.SetGrammar;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AnalizInputStringToCorectExsspresion {
     private ArrayList<Bukva> listRulse ;
@@ -32,8 +35,17 @@ public class AnalizInputStringToCorectExsspresion {
     
     public AnalizRez runAnalizExpression(){
         init();
+
+        //Выделяет каждый элемент выражения в отдельную строку
         inPutLexemList = SplitExpressionAtArrayList.ParsStringPart(inPutStringExpression);
-        inPutLexemList= SplitExpressionAtArrayList.addToStrinArray$(getInPutLexemList()); //////////////**************
+        // Проверка на коректность выражения + добавления информации о ошибках
+        checkStr(inPutLexemList,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
+                                                                                   "3", "4", "5", "6","7", "8", "9",
+                                                                                   "(", ")", "min", "max", "^", "sqrt"
+                                                                                                                   ))));
+        // Добавление завершающих символов до для распознавания LL(1)-грамматики
+        inPutLexemList= SplitExpressionAtArrayList.addToStrinArray$(getInPutLexemList());
+
         ListUsedRules = new ArrayList<Integer>();
         AnalitExpression();
         returnObj.rules=ListUsedRules;
@@ -255,4 +267,78 @@ public class AnalizInputStringToCorectExsspresion {
     public String[] getInPutLexemList() {
         return inPutLexemList;
     }
+
+
+    // Start (Проверка на коректность грамматики и скобок)
+    public static void checkStr(String[] inputExpression,SetGrammar grammarElements){
+        boolean counterErrors=false;
+        String[] modifiedInpExpr=checkStrHelp(inputExpression) ;
+        int counterBreaks=0;
+
+        //Checking brackets at the expression
+        for (int i=0;i<modifiedInpExpr.length;i++){
+            // Amount brackets count up in the expression
+            if(modifiedInpExpr[i].equals("("))
+                counterBreaks++;
+            if(modifiedInpExpr[i].equals(")"))
+                counterBreaks--;
+        }
+
+        for (int i=0;i<modifiedInpExpr.length-1;i++){
+            counterErrors=false;
+
+            //  Checking the expression elements at the include elements of grammar.
+            for (int j=0;j<grammarElements.getSet().size();j++){
+                // Do are brackets enter correct?
+                if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+1].equals("(") ||modifiedInpExpr[i].equals("(") && modifiedInpExpr[i+1].equals(")") ){
+                    break;
+                }
+                if(grammarElements.getSet().get(j).equals(modifiedInpExpr[i])== true){
+                    counterErrors=true;
+                }
+            }
+
+            if(counterErrors == false){
+                System.err.println("\nWe have a problem! Expression is not correct!");
+                System.err.println("\nWith this symbol: {"+modifiedInpExpr[i]+"}");
+                i=modifiedInpExpr.length;
+                break;
+            }
+        }
+
+        counterErrors = false;
+        //  Checking the expression elements at the include elements of grammar for last element expression.
+        for (int j=0;j<grammarElements.getSet().size();j++){
+            if(grammarElements.getSet().get(j).equals(inputExpression[inputExpression.length-1])== true){
+                counterErrors=true;
+            }
+        }
+
+
+        if(counterErrors == false){
+            System.err.println("\nWe have a problem! Expression is not correct!\nLast element expression!");
+        }
+
+        if(counterBreaks != 0){
+            System.err.println("\nBrackets are placed incorrectly!\n");
+        }
+
+    }
+
+    public static String[] checkStrHelp(String[] inputExpression){
+        for (int j=0;j<inputExpression.length;j++){
+            if(inputExpression[j].charAt(0)>47 || inputExpression[j].charAt(0)<58){
+                inputExpression[j]=inputExpression[j].charAt(0)+"";
+            }
+        }
+        return inputExpression;
+    }
+    // end (Проверка на коректность грамматики и скобок)
+
+
+
 }
+
+
+
+
