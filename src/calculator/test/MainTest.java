@@ -37,7 +37,7 @@ public class MainTest {
                 //Правила со звездочкой заменяют модифицируют строку start 
                 if(inPutLexemList[i].charAt(0)== list.get(j).complect.charAt(0)
                                 && RefactoringStrings.getLastCharacter(start) == list.get(j).str.charAt(0) 
-                                                   && list.get(j).stur == true){
+                                                   && list.get(j).shiftFlag == true){
     
                     //Для случая со знаком 
                        if((inPutLexemList[i].charAt(0) == '*' 
@@ -60,7 +60,7 @@ public class MainTest {
                 
                 if(inPutLexemList[i].charAt(0)== list.get(j).complect.charAt(0)
                                  && RefactoringStrings.getLastCharacter(start) == list.get(j).str.charAt(0) 
-                                                  && list.get(j).stur == false){       
+                                                  && list.get(j).shiftFlag == false){
                     start=RefactoringStrings.RefactoringStr(start,
                                                             list.get(j).zamena);
                     ListUsedRules.add(j);
@@ -73,7 +73,7 @@ public class MainTest {
              */
             System.out.println("\n-------------------------------\nLenght::"+start.length()+" Value::"+start);
             for (Integer integer : ListUsedRules) {
-                System.out.println(integer+". "+list.get(integer).str+", "+list.get(integer).complect+" :: "+list.get(integer).zamena+" *:"+list.get(integer).stur);
+                System.out.println(integer+". "+list.get(integer).str+", "+list.get(integer).complect+" :: "+list.get(integer).zamena+" *:"+list.get(integer).shiftFlag);
             }
     }
        // определяет следующию лексему после бинарного арифметического оператора и возращает соответствующие правила

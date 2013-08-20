@@ -13,14 +13,14 @@ public class A extends Bukva{
         complect=aComplect;
         zamena=aZamena;
         str="A";
-        ///stur=true;
+        ///shiftFlag=true;
     }
     
      public A(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
         str="A";
-        stur=aStur;
-        ///stur=true;
+        shiftFlag =aStur;
+        ///shiftFlag=true;
     }
 }

@@ -1,7 +1,7 @@
 package calculator.test;
 
 import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
-import kaa.controler.analiz.rez.AnalizRez;
+import kaa.controler.analiz.rez.AnalizInfo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,17 +12,18 @@ import kaa.controler.analiz.rez.AnalizRez;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("psqrt(5)+345)))");
-        AnalizRez analizRez = analiz.runAnalizExpression();
-        String[] lexem = analizRez.lexem;
-        System.out.println("Start: "+analizRez.start);
-        System.out.println("Position cursor: ('"+lexem[analizRez.indexErrorSimbolAtTheStr.get(0)+1]+
-                                               "') Index: "+analizRez.indexErrorSimbolAtTheStr+
-                                               "Numbers error: "+analizRez.numberError);
-        if(analizRez.error == true)
-            System.err.println("Error:"+analizRez.error);
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("min(58+69)");
+        AnalizInfo analizInfo = analiz.runAnalizExpression();
+        String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
+        System.out.println("Start: "+ analizInfo.start);
+        System.out.println("Position cursor: ('"+lexem[analizInfo.arrayIndexesOfIncorrectLexeme.get(0)+1]+
+                                               "') Index: "+ analizInfo.arrayIndexesOfIncorrectLexeme +
+                                               "Numbers errorFlag: "+ analizInfo.arrayOfNumbersOfErrors);
+        if(analizInfo.errorFlag == true)
+            System.err.println("Error:"+ analizInfo.errorFlag);
         else
-            System.out.println("Error:"+analizRez.error);
+            System.out.println("Error:"+ analizInfo.errorFlag);
 
+        analiz.showListUsedReules();
     }
 }

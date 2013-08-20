@@ -6,7 +6,7 @@ package calculator.test;
 
 import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
 import kaa.model.SetGrammar;
-import kaa.controler.analiz.rez.AnalizRez;
+import kaa.controler.analiz.rez.AnalizInfo;
 import kaa.controler.analiz.str.SplitExpressionAtArrayList;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class TestString {
    public static  void  main(String[] arg){
        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("^(h5h)2");
-       AnalizRez rez=analiz.runAnalizExpression();
+       AnalizInfo rez=analiz.runAnalizExpression();
 
        //temp Start
        SetGrammar sets=new SetGrammar(new ArrayList<String>(Arrays.asList("+","-","/","*","0","1","2","3","4","5","6",
@@ -38,7 +38,7 @@ public class TestString {
 
 
 
-     //  if(rez.error==false && rez.start.length()==0 ){
+     //  if(rez.errorFlag==false && rez.start.length()==0 ){
      //      analiz.showListUsedReules();
      //  }else{
      //      System.err.println("We have problems");

@@ -13,16 +13,16 @@ public class Bukva {
         str=aStr;
         complect=aComplect;
         zamena=aZamena;
-        stur=false;
+        shiftFlag =false;
     }
     public Bukva(){
         str="KAA";
         complect="";
         zamena="";
-        stur=false;
+        shiftFlag =false;
     }
     public String str;
     public String complect;
     public String zamena;
-    public boolean stur;
+    public boolean shiftFlag;
 }

@@ -9,7 +9,7 @@ public class I extends Bukva{
         complect=aComplect;
         zamena=aZamena;
         str="I";
-        stur=true;
+        shiftFlag =true;
     }
       
 }

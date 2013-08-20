@@ -5,6 +5,6 @@ public class Y extends Bukva{
         complect=aComplect;
         zamena=aZamena;
         str="Y";
-        ///stur=true;
+        ///shiftFlag=true;
     }
 }
