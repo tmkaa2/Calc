@@ -1,5 +1,8 @@
 package calculator.test;
 
+import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
+import kaa.controler.analiz.rez.AnalizRez;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Mr.Green
@@ -9,9 +12,17 @@ package calculator.test;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        String input="25+69*74-69/6";
-        for (int i=0;i<10;i++){
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("psqrt(5)+345)))");
+        AnalizRez analizRez = analiz.runAnalizExpression();
+        String[] lexem = analizRez.lexem;
+        System.out.println("Start: "+analizRez.start);
+        System.out.println("Position cursor: ('"+lexem[analizRez.indexErrorSimbolAtTheStr.get(0)+1]+
+                                               "') Index: "+analizRez.indexErrorSimbolAtTheStr+
+                                               "Numbers error: "+analizRez.numberError);
+        if(analizRez.error == true)
+            System.err.println("Error:"+analizRez.error);
+        else
+            System.out.println("Error:"+analizRez.error);
 
-        }
     }
 }

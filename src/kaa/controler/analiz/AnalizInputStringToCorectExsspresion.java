@@ -30,7 +30,7 @@ public class AnalizInputStringToCorectExsspresion {
     public AnalizInputStringToCorectExsspresion(String aInPutStringExpression){
         inPutStringExpression = aInPutStringExpression;
         returnObj= new AnalizRez();
-
+        returnObj.start=aInPutStringExpression;
     }
     
     public AnalizRez runAnalizExpression(){
@@ -47,9 +47,9 @@ public class AnalizInputStringToCorectExsspresion {
         inPutLexemList= SplitExpressionAtArrayList.addToStrinArray$(getInPutLexemList());
 
         ListUsedRules = new ArrayList<Integer>();
+
         AnalitExpression();
         returnObj.rules=ListUsedRules;
-        returnObj.start=start;
         returnObj.lexem=inPutLexemList;
 
         return returnObj;
@@ -75,8 +75,9 @@ public class AnalizInputStringToCorectExsspresion {
                                                 ListUsedRules.add(j);
                                                 j=0;
                                             }else{
-                                                    System.err.println("Error. Don't true expression!(2)");
+                                                    System.err.println("Error(1). Для случая со знаком");
                                                     returnObj.error=true;
+                                                    returnObj.indexErrorSimbolAtTheStr.add(i);
                                                     zamenaSimbola=false;
                                                     break;
                                                    // break exit;
@@ -84,24 +85,23 @@ public class AnalizInputStringToCorectExsspresion {
                        //Правила модифицируют строку start и переходять на 
                        // следующий элемент массива лексем
                        }else{
-                            start=RefactoringStrings.RefactoringStr(start,
-                                                            listRulse.get(j).zamena);
+                           start=RefactoringStrings.RefactoringStr(start, listRulse.get(j).zamena);
                            ListUsedRules.add(j);
                            j=0;
                        }             
                 }
                 
-                if(getInPutLexemList()[i].charAt(0)== listRulse.get(j).complect.charAt(0)
-                                 && RefactoringStrings.getLastCharacter(start) == listRulse.get(j).str.charAt(0) 
-                                                  && listRulse.get(j).stur == false){       
-                    start=RefactoringStrings.RefactoringStr(start,
-                                                            listRulse.get(j).zamena);
+                if(getInPutLexemList()[i].charAt(0)==listRulse.get(j).complect.charAt(0)&&
+                   RefactoringStrings.getLastCharacter(start)==listRulse.get(j).str.charAt(0)&&
+                                                                   listRulse.get(j).stur==false){
+
+                    start=RefactoringStrings.RefactoringStr(start, listRulse.get(j).zamena);
                     ///отладка ошибок
                     ListUsedRules.add(j);
                     zamenaSimbola=true;
                     break;
                 }
-            }     
+            }
             if(zamenaSimbola==false){
                 returnObj.error=true;
                 System.err.println("Error. Don't true expression!(1)");
@@ -270,8 +270,10 @@ public class AnalizInputStringToCorectExsspresion {
 
 
     // Start (Проверка на коректность грамматики и скобок)
-    public static void checkStr(String[] inputExpression,SetGrammar grammarElements){
-        boolean counterErrors=false;
+    public void checkStr(String[] inputExpression,SetGrammar grammarElements){
+        boolean counterErrors=true;
+        int  counterErrorsInt=0;
+        int BracersFlag=0;
         String[] modifiedInpExpr=checkStrHelp(inputExpression) ;
         int counterBreaks=0;
 
@@ -283,27 +285,43 @@ public class AnalizInputStringToCorectExsspresion {
             if(modifiedInpExpr[i].equals(")"))
                 counterBreaks--;
         }
-
+        //[ok]
         for (int i=0;i<modifiedInpExpr.length-1;i++){
-            counterErrors=false;
 
-            //  Checking the expression elements at the include elements of grammar.
-            for (int j=0;j<grammarElements.getSet().size();j++){
-                // Do are brackets enter correct?
-                if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+1].equals("(") ||modifiedInpExpr[i].equals("(") && modifiedInpExpr[i+1].equals(")") ){
-                    break;
-                }
-                if(grammarElements.getSet().get(j).equals(modifiedInpExpr[i])== true){
-                    counterErrors=true;
-                }
-            }
-
-            if(counterErrors == false){
-                System.err.println("\nWe have a problem! Expression is not correct!");
-                System.err.println("\nWith this symbol: {"+modifiedInpExpr[i]+"}");
-                i=modifiedInpExpr.length;
+            if(counterErrors==false){
+                System.err.println("Error(701)::нет элемента в грамматике");
+                returnObj.numberError.add(701);
+                returnObj.error=true;
+                returnObj.indexErrorSimbolAtTheStr.add(i);
+                BracersFlag=1;
                 break;
+            }else{
+                //  Checking the expression elements at the include elements of grammar.
+                for (int j=0;j<grammarElements.getSet().size();j++){
+
+                    // Do are brackets enter correct?
+                    if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+1].equals("(") ||modifiedInpExpr[i].equals("(") && modifiedInpExpr[i+1].equals(")") ){
+                        System.err.println("Error(702)::конфликт скобок");
+                        returnObj.error=true;
+                        returnObj.numberError.add(702);
+                        returnObj.indexErrorSimbolAtTheStr.add(i);
+                        i= modifiedInpExpr.length;
+                        BracersFlag=1;
+                        counterErrors=true;
+                        break;
+                    }
+                    counterErrorsInt=0;
+                    if(grammarElements.getSet().get(j).equals(modifiedInpExpr[i])== true){
+                        counterErrors=true;
+                        counterErrorsInt=1;
+                        break;
+                    }
+                }
+                if(counterErrorsInt==0){
+                    counterErrors=false;
+                }
             }
+
         }
 
         counterErrors = false;
@@ -314,20 +332,28 @@ public class AnalizInputStringToCorectExsspresion {
             }
         }
 
-
-        if(counterErrors == false){
-            System.err.println("\nWe have a problem! Expression is not correct!\nLast element expression!");
+        if(counterErrors==false){
+            System.err.println("Error(703)::последнего  элемента нет в грамматике");
+            returnObj.numberError.add(703);
+            returnObj.error=true;
+            returnObj.indexErrorSimbolAtTheStr.add(inputExpression.length-1);
+            BracersFlag=1;
         }
 
-        if(counterBreaks != 0){
-            System.err.println("\nBrackets are placed incorrectly!\n");
+
+
+        if(counterBreaks != 0 && BracersFlag==0){
+            System.err.println("Error(704)::Нехватает скобок(и)");
+            returnObj.numberError.add(704);
+            returnObj.error=true;
+            returnObj.indexErrorSimbolAtTheStr.add(0);
         }
 
     }
 
     public static String[] checkStrHelp(String[] inputExpression){
         for (int j=0;j<inputExpression.length;j++){
-            if(inputExpression[j].charAt(0)>47 || inputExpression[j].charAt(0)<58){
+            if(inputExpression[j].charAt(0)>47 && inputExpression[j].charAt(0)<58){
                 inputExpression[j]=inputExpression[j].charAt(0)+"";
             }
         }
