@@ -1,7 +1,5 @@
 package kaa.view.panel;
 
-import kaa.controler.button.ButtonListener;
-
 import javax.swing.*;
 public class MainPanel extends JPanel {
     public MainPanel(JLabel aLabelExpression, JLabel aLabelMsgError, JTextField aJtfExpression, JTextField aJtfResult,
