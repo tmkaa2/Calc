@@ -1,4 +1,4 @@
-package kaa.controler.analiz.rez;
+package kaa.view.analysis.result;
 
 import java.util.ArrayList;
 

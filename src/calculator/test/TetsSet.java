@@ -1,7 +1,7 @@
 package calculator.test;
 
 import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
-import kaa.controler.analiz.rez.AnalizInfo;
+import kaa.view.analysis.result.AnalizInfo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +12,7 @@ import kaa.controler.analiz.rez.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("min(58+69)");
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion(")0)");
         AnalizInfo analizInfo = analiz.runAnalizExpression();
         String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
         System.out.println("Start: "+ analizInfo.start);

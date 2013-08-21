@@ -6,7 +6,7 @@ package calculator.test;
 
 import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
 import kaa.model.SetGrammar;
-import kaa.controler.analiz.rez.AnalizInfo;
+import kaa.view.analysis.result.AnalizInfo;
 import kaa.controler.analiz.str.SplitExpressionAtArrayList;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class TestString {
 
 
 
-     //  if(rez.errorFlag==false && rez.start.length()==0 ){
+     //  if(result.errorFlag==false && result.start.length()==0 ){
      //      analiz.showListUsedReules();
      //  }else{
      //      System.err.println("We have problems");

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kaa.controler.analiz.charters;
+package kaa.model.charters;
 
 /**
  *
@@ -13,5 +13,12 @@ public class M extends Bukva{
         complect=aComplect;
         zamena=aZamena;
         str="M";
+    }
+    public M(String aComplect,String aZamena, boolean aStur){
+        complect=aComplect;
+        zamena=aZamena;
+        str="M";
+        shiftFlag =aStur;
+        ///shiftFlag=true;
     }
 }

@@ -1,4 +1,4 @@
-package kaa.controler.view;
+package kaa.controler.form;
 
 import kaa.view.frame.MainFrame;
 

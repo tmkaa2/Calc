@@ -1,4 +1,4 @@
-package kaa.controler.analiz.charters;
+package kaa.model.charters;
 public class S extends Bukva{
     public S(String aComplect,String aZamena){
         complect=aComplect;

@@ -2,9 +2,7 @@ package kaa.controler.button;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import kaa.controler.view.ElementControlGeter;
-
-import javax.swing.*;
+import kaa.controler.form.ElementControlGeter;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,14 +1,14 @@
 package calculator.test;
 
 import kaa.controler.analiz.str.SplitExpressionAtArrayList;
-import kaa.controler.analiz.charters.Bukva;
-import kaa.controler.analiz.charters.I;
-import kaa.controler.analiz.charters.A;
-import kaa.controler.analiz.charters.K;
-import kaa.controler.analiz.charters.M;
-import kaa.controler.analiz.charters.N;
-import kaa.controler.analiz.charters.S;
-import kaa.controler.analiz.charters.Y;
+import kaa.model.charters.Bukva;
+import kaa.model.charters.I;
+import kaa.model.charters.A;
+import kaa.model.charters.K;
+import kaa.model.charters.M;
+import kaa.model.charters.N;
+import kaa.model.charters.S;
+import kaa.model.charters.Y;
 import kaa.controler.analiz.str.RefactoringStrings;
 import java.util.ArrayList;
 

@@ -2,8 +2,8 @@ package kaa.view;
 
 import javax.swing.*;
 
-import kaa.controler.view.ElementControlGeter;
-import kaa.view.frame.MainFrame;
+import kaa.controler.form.ElementControlGeter;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Mr.Green
