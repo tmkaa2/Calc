@@ -1,7 +1,7 @@
 package calculator.test;
 
-import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
-import kaa.view.analysis.result.AnalizInfo;
+import kaa.calculator.controler.analiz.AnalizInputStringToCorectExsspresion;
+import kaa.calculator.view.analysis.result.AnalizInfo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +12,7 @@ import kaa.view.analysis.result.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion(")0)");
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("(2*6$)$");
         AnalizInfo analizInfo = analiz.runAnalizExpression();
         String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
         System.out.println("Start: "+ analizInfo.start);
@@ -24,6 +24,6 @@ public class TetsSet {
         else
             System.out.println("Error:"+ analizInfo.errorFlag);
 
-        analiz.showListUsedReules();
+        analiz.showListUsedReules2();
     }
 }

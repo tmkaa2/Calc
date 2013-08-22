@@ -1,5 +1,5 @@
 
-package kaa.model.charters;
+package kaa.calculator.model.charters;
 public class K extends Bukva{
     public K(String aComplect,String aZamena){
         complect=aComplect;

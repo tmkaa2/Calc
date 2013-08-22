@@ -1,6 +1,6 @@
-package kaa.controler.form;
+package kaa.calculator.controler.form;
 
-import kaa.view.frame.MainFrame;
+import kaa.calculator.view.frame.MainFrame;
 
 /**
  * Created with IntelliJ IDEA.

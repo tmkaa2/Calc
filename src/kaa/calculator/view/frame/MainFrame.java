@@ -1,7 +1,7 @@
-package kaa.view.frame;
+package kaa.calculator.view.frame;
 
-import kaa.controler.button.ButtonListener;
-import kaa.view.panel.MainPanel;
+import kaa.calculator.controler.button.ButtonListener;
+import kaa.calculator.view.panel.MainPanel;
 
 import javax.swing.*;
 public class MainFrame extends JFrame{

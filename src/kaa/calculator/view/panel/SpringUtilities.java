@@ -1,4 +1,4 @@
-package kaa.view.panel;
+package kaa.calculator.view.panel;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,4 +1,4 @@
-package kaa.model.charters;
+package kaa.calculator.model.charters;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,9 +8,11 @@ package kaa.model.charters;
  * To change this template use File | Settings | File Templates.
  */
 public class G extends Bukva {
-    public G(String aComplect,String aZamena){
+    public G(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
         str="G";
+        shiftFlag =aStur;
+        ///shiftFlag=true;
     }
 }

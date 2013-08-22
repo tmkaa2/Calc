@@ -1,5 +1,5 @@
 
-package kaa.controler.analiz.str;
+package kaa.calculator.controler.analiz.str;
 
 import java.util.ArrayList;
 import java.util.Arrays;

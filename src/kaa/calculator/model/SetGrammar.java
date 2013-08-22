@@ -1,4 +1,4 @@
-package kaa.model;
+package kaa.calculator.model;
 import java.util.ArrayList;
 
 public class SetGrammar {

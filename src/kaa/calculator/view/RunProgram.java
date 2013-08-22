@@ -1,8 +1,10 @@
-package kaa.view;
+package kaa.calculator.view;
+
+import kaa.calculator.controler.form.ElementControlGeter;
 
 import javax.swing.*;
 
-import kaa.controler.form.ElementControlGeter;
+
 
 /**
  * Created with IntelliJ IDEA.

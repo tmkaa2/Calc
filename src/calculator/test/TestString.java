@@ -4,10 +4,10 @@
  */
 package calculator.test;
 
-import kaa.controler.analiz.AnalizInputStringToCorectExsspresion;
-import kaa.model.SetGrammar;
-import kaa.view.analysis.result.AnalizInfo;
-import kaa.controler.analiz.str.SplitExpressionAtArrayList;
+import kaa.calculator.controler.analiz.AnalizInputStringToCorectExsspresion;
+import kaa.calculator.model.SetGrammar;
+import kaa.calculator.view.analysis.result.AnalizInfo;
+import kaa.calculator.controler.analiz.str.SplitExpressionAtArrayList;
 
 import java.util.ArrayList;
 import java.util.Arrays;

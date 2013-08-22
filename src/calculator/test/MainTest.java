@@ -1,15 +1,8 @@
 package calculator.test;
 
-import kaa.controler.analiz.str.SplitExpressionAtArrayList;
-import kaa.model.charters.Bukva;
-import kaa.model.charters.I;
-import kaa.model.charters.A;
-import kaa.model.charters.K;
-import kaa.model.charters.M;
-import kaa.model.charters.N;
-import kaa.model.charters.S;
-import kaa.model.charters.Y;
-import kaa.controler.analiz.str.RefactoringStrings;
+import kaa.calculator.controler.analiz.str.SplitExpressionAtArrayList;
+import kaa.calculator.model.charters.*;
+import kaa.calculator.controler.analiz.str.RefactoringStrings;
 import java.util.ArrayList;
 
 public class MainTest {
@@ -17,7 +10,7 @@ public class MainTest {
             
     public static void main(String[] args) {
        MainTest obj = new MainTest();
-       obj.init();
+     //  obj.init();
        
        String[] inPutLexemList = SplitExpressionAtArrayList.ParsStringPart("(min(33,75)-((min(25,98)+(((((sqrt(23652+68+68+98)+89)+(96+63/^(5*8+625-54/55)5))*sqrt(95)))))))");
        //Add for add$ to String arrays simbol "$"
@@ -116,7 +109,7 @@ public class MainTest {
       }
     public ArrayList<Bukva> getList(){
         return listRulse;
-    }
+    } /*
     public void init(){
         listRulse = new ArrayList<Bukva>();
         listRulse.add(new I("(","AS"));      //0
@@ -215,6 +208,6 @@ public class MainTest {
         for (Bukva ls : list) {
             System.out.print(ls.zamena+" ");
     
-    }*/
-   }
+    }
+   }*/
 }

@@ -1,4 +1,4 @@
-package kaa.model.charters;
+package kaa.calculator.model.charters;
 
 /**
  * Created with IntelliJ IDEA.

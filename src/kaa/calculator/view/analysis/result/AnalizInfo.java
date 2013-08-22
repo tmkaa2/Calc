@@ -1,4 +1,4 @@
-package kaa.view.analysis.result;
+package kaa.calculator.view.analysis.result;
 
 import java.util.ArrayList;
 
