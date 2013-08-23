@@ -8,9 +8,10 @@ package kaa.calculator.model.charters;
  * To change this template use File | Settings | File Templates.
  */
 public class Z extends Bukva {
-    public Z(String aComplect,String aZamena){
+    public Z(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
         str="Z";
+        shiftFlag =aStur;
     }
 }

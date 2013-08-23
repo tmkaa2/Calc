@@ -39,8 +39,8 @@ public class Brackets {
         K[] kArray = { new K("sqrt","Jsqrt",true),new K("^","NJ^",true)};
         Y[] yArray = { new Y("+",""),new Y("-","") ,new Y("/",""),new Y("*","")};
       //  G[] gArray = { new G("(","A)A(",ture)};
-        J[] jArray = { new J("(",")A(")};
-        Z[] zArray = { new Z("(",")N,N(")};
+        J[] jArray = { new J("(",")A(",true)};
+        Z[] zArray = { new Z("(",")N,N(",true)};
         Bukva[] bukvaArray = {new Bukva(",",",",""),new Bukva("(","(",""),new Bukva(")",")","")};
 
         arrayOfGrammarRules.add(iArray);

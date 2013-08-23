@@ -16,6 +16,8 @@ public class AnalizInputStringToCorectExsspresion {
 
     ArrayList<Bukva[]> arrayOfGrammarRules2;
 
+    ArrayList<Integer[]> view = new ArrayList<Integer[]>();
+
     private ArrayList<Bukva> arrayOfGrammarRules;
     private ArrayList<Integer> arrayOfNumbersOfGrammarRules;
     private String[] arrayOflexemesWithUserExpression;
@@ -35,9 +37,7 @@ public class AnalizInputStringToCorectExsspresion {
 
         //Выделяет каждый элемент выражения в отдельную строку
         arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.ParsStringPart(userExpression);
-        for(String str: arrayOflexemesWithUserExpression) {
-            System.out.print(str+" ");
-        }
+
         // Проверка на коректность выражения + добавления информации о ошибках
        /*checkStr(arrayOflexemesWithUserExpression,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
                                                                                    "3", "4", "5", "6","7", "8", "9",
@@ -45,9 +45,12 @@ public class AnalizInputStringToCorectExsspresion {
                                                                                                                    ))));*/
         // Добавление завершающих символов до для распознавания LL(1)-грамматики
        // arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
+        System.out.println("Line start:["+start+"]");
+
         if(analizInfo.errorFlag ==false){
             AnalitExpression2();
         }
+        System.out.println("Line end:["+start+"]");
         analizInfo.arrayOfNumbersOfGrammarRules = arrayOfNumbersOfGrammarRules;
         analizInfo.arrayOflexemesWithCustomExpression = arrayOflexemesWithUserExpression;
         return analizInfo;
@@ -409,18 +412,25 @@ public class AnalizInputStringToCorectExsspresion {
 
     private void init1(){
         arrayOfGrammarRules2 = new ArrayList<Bukva[]>();
-        I[] iArray = { new I("0","AN"),new I("1","AN"),new I("2","AN"),new I("3","AN"),new I("4","AN"),new I("5","AN"),
-                new I("6","AN"),new I("7","AN"),new I("8","AN"),new I("9","AN"),
-                new I("min","AM"),new I("max","AM"),new I("^","AK"),new I("sqrt","AK"),new I("(","G")};//ok
 
-        A[] aArray = {new A("A", "",true), new A("+", "AY",true),   new A("-", "AY", true),  new A("*", "AY", true),new A("/", "AY", true),
-                new A("0", "AN",true),   new A("1", "AN", true),  new A("2", "AN", true),new A("3", "AN", true),
-                new A("4", "AN",true),   new A("5", "AN", true),  new A("6", "AN", true),new A("7", "AN", true),
-                new A("8", "AN",true),   new A("9", "AN", true),  new A("min", "AM", true),new A("max", "AM", true),
-                new A("sqrt","AK",true), new A("^", "AK", true),  new A("(", "G",true),new A("$", "",false) }; //ok
+        I[] iArray = { new I("0","AN"),new I("1","AN"),new I("2","AN"),new I("3","AN"),new I("4","AN"),
+                       new I("5","AN"),new I("6","AN"),new I("7","AN"),new I("8","AN"),new I("9","AN"),
+                       new I("min","AM"),new I("max","AM"),
+                       new I("^","AK"),new I("sqrt","AK"),
+                       new I("(","G")
+                     };
 
-        N[] nArray = { new N("0",""),new N("1",""),new N("2",""),new N("3",""),new N("4",""),new N("5",""),new N("6",""),
-                new N("7",""),new N("8",""),new N("9","")};
+        A[] aArray =  { new A("+","AY",true),new A("-","AY",true),new A("*","AY",true),new A("/","AY",true),
+                        new A("0","AN",true),new A("1","AN",true),new A("2","AN",true),new A("3","AN",true),new A("4","AN",true),
+                        new A("5","AN",true),new A("6","AN",true),new A("7","AN",true),new A("8","AN",true),new A("9","AN",true),
+                        new A("min","AM",true),new A("max","AM",true),
+                        new A("sqrt","AK",true),new A("^","AK",true),
+                        new A("(","G",true),new A("$","",false)
+                      };
+
+        N[] nArray = { new N("0",""),new N("1",""),new N("2",""),new N("3",""),new N("4",""),
+                       new N("5",""),new N("6",""),new N("7",""),new N("8",""),new N("9","")
+                     };
 
         M[] mArray = { new M("min","Zm",true),new M("max","Zm",true)};
 
@@ -428,11 +438,16 @@ public class AnalizInputStringToCorectExsspresion {
 
         Y[] yArray = { new Y("+",""),new Y("-","") ,new Y("/",""),new Y("*","")};
         G[] gArray = { new G("(","A)A(",true)};
-        J[] jArray = { new J("(",")A(")};
-        Z[] zArray = { new Z("(",")N,N(")};
+        J[] jArray = { new J("(",")A(",true)};
+        Z[] zArray = { new Z("(",")N,N(",true)};
+
         Bukva[] t1 = { new Bukva(",",",","")};
         Bukva[] t2 = { new Bukva("(","(","")};
         Bukva[] t3 = { new Bukva(")",")","")};
+
+        Bukva[] t4 = { new Bukva("m","m","")};
+        Bukva[] t5 = { new Bukva("^","^","")};
+        Bukva[] t6 = { new Bukva("s","s","")};
 
         arrayOfGrammarRules2.add(iArray);
         arrayOfGrammarRules2.add(aArray);
@@ -446,13 +461,9 @@ public class AnalizInputStringToCorectExsspresion {
         arrayOfGrammarRules2.add(t1);
         arrayOfGrammarRules2.add(t2);
         arrayOfGrammarRules2.add(t3);
-
-
-
-
-        for (Bukva[] row : arrayOfGrammarRules2) {
-            System.out.println(row.length+" : "+row[0].str);
-        }
+        arrayOfGrammarRules2.add(t4);
+        arrayOfGrammarRules2.add(t5);
+        arrayOfGrammarRules2.add(t6);
     }
 
     // Area of experements
@@ -478,7 +489,11 @@ toNext:      for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
                                 String temp= new String(remuvArgument2(getArrayOfLexemesWithUserExpression(),i,start));
                                 if(start.equals(temp)== false){
                                     start=temp;
-                                    arrayOfNumbersOfGrammarRules.add(j);
+                                    Integer[] ka1 = new Integer[2];
+                                    ka1[0]=f;
+                                    ka1[1]=j;
+                                    view.add(ka1);
+
                                     f=0;
                                     break toNext;
                                 }else{
@@ -493,7 +508,10 @@ toNext:      for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
                                 // следующий элемент массива лексем
                             }else{
                                 start=RefactoringStrings.RefactoringStr(start, arrayOfGrammarRules2.get(f)[j].zamena);
-                                arrayOfNumbersOfGrammarRules.add(j);
+                                Integer[] ka1 = new Integer[2];
+                                ka1[0]=f;
+                                ka1[1]=j;
+                                view.add(ka1);
                                 //break ;
                                 f=0;
                                 break;
@@ -505,7 +523,10 @@ toNext:      for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
 
                             start=RefactoringStrings.RefactoringStr(start, arrayOfGrammarRules2.get(f)[j].zamena);
                             ///отладка ошибок
-                            arrayOfNumbersOfGrammarRules.add(j);
+                            Integer[] ka1 = new Integer[2];
+                            ka1[0]=f;
+                            ka1[1]=j;
+                            view.add(ka1);
                             zamenaSimbola=true;
                             break toNext;
                         }
@@ -525,27 +546,13 @@ toNext:      for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
     }
 
     public void showListUsedReules2(){
-        if(arrayOfNumbersOfGrammarRules != null){
-            int iteration=1;
-            System.out.println("Input string:: "+ userExpression);
-            System.out.println("----------------------\n"
-                    +"Start: \n"
-                    +"----------------------");
-            for (Integer integer : arrayOfNumbersOfGrammarRules) {
-                System.out.println(iteration+"-> ["+integer+"] "
-                        + arrayOfGrammarRules.get(integer).str+", "
-                        + arrayOfGrammarRules.get(integer).complect+" :: "
-                        + arrayOfGrammarRules.get(integer).zamena+" *:"
-                        + arrayOfGrammarRules.get(integer).shiftFlag);
-                iteration++;
+            for(int i=0;i<view.size(); i++){
+                  System.out.println( (i+1)+". "+
+                       arrayOfGrammarRules2.get(view.get(i)[0])[view.get(i)[1]].str+", "
+                       + arrayOfGrammarRules2.get(view.get(i)[0])[view.get(i)[1]].complect+" :: "
+                       + arrayOfGrammarRules2.get(view.get(i)[0])[view.get(i)[1]].zamena+" *:"
+                      + arrayOfGrammarRules2.get(view.get(i)[0])[view.get(i)[1]].shiftFlag);
             }
-            System.out.println("----------------------\n"
-                    +"Lenght::'"+start.length()+"' Value::'"
-                    + start+"'\n----------------------");
-        }else
-            System.out.println("ATTENTION!\nCall method 'AnalitExpression()'"
-                    + " and thereafter call this method 'showListUsedReules()"
-                    + "'!");
     }
 }
 

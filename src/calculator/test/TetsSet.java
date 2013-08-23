@@ -12,13 +12,13 @@ import kaa.calculator.view.analysis.result.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("(2*6$)$");
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("/25$");
         AnalizInfo analizInfo = analiz.runAnalizExpression();
         String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
-        System.out.println("Start: "+ analizInfo.start);
+        /*System.out.println("Start: "+ analizInfo.start);
         System.out.println("Position cursor: ('"+lexem[analizInfo.arrayIndexesOfIncorrectLexeme.get(0)+1]+
                                                "') Index: "+ analizInfo.arrayIndexesOfIncorrectLexeme +
-                                               "Numbers errorFlag: "+ analizInfo.arrayOfNumbersOfErrors);
+                                               "Numbers errorFlag: "+ analizInfo.arrayOfNumbersOfErrors);*/
         if(analizInfo.errorFlag == true)
             System.err.println("Error:"+ analizInfo.errorFlag);
         else
