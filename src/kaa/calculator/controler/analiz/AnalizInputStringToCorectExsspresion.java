@@ -25,233 +25,51 @@ public class AnalizInputStringToCorectExsspresion {
     private String start= "I";
     private AnalizInfo analizInfo;
     
-    public AnalizInputStringToCorectExsspresion(String aUserExpression){
+    public AnalizInputStringToCorectExsspresion(String aUserExpression)
+    {
         userExpression = aUserExpression;
         arrayOfNumbersOfGrammarRules = new ArrayList<Integer>();
         analizInfo = new AnalizInfo();
         analizInfo.start=aUserExpression;
     }
-    
-    public AnalizInfo runAnalizExpression(){
+
+    public String[] getArrayOfLexemesWithUserExpression()
+    {
+        return arrayOflexemesWithUserExpression;
+    }
+
+
+    public AnalizInfo runAnalizExpression()
+    {
         init1();
 
         //Выделяет каждый элемент выражения в отдельную строку
         arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.ParsStringPart(userExpression);
 
         // Проверка на коректность выражения + добавления информации о ошибках
-       /*checkStr(arrayOflexemesWithUserExpression,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
+    /*   checkStr(arrayOflexemesWithUserExpression,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
                                                                                    "3", "4", "5", "6","7", "8", "9",
                                                                                    "(", ")", "min", "max", "^", "sqrt",","
-                                                                                                                   ))));*/
-        // Добавление завершающих символов до для распознавания LL(1)-грамматики
-       // arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
+                                                                                                                   ))));
+      */  // Добавление завершающих символов до для распознавания LL(1)-грамматики
+      // arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
         System.out.println("Line start:["+start+"]");
 
         if(analizInfo.errorFlag ==false){
-            AnalitExpression2();
+           AnalitExpression2();
+            System.out.println("Отработало");
         }
+
         System.out.println("Line end:["+start+"]");
         analizInfo.arrayOfNumbersOfGrammarRules = arrayOfNumbersOfGrammarRules;
         analizInfo.arrayOflexemesWithCustomExpression = arrayOflexemesWithUserExpression;
         return analizInfo;
     }
-    
-    public void AnalitExpression(){
-        boolean zamenaSimbola=false;
-/*exit:*/for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) {
-            for (int j = 0; j < arrayOfGrammarRules.size(); j++) {
-                //Правила со звездочкой заменяют модифицируют строку start
-                if(getArrayOfLexemesWithUserExpression()[i].charAt(0)== arrayOfGrammarRules.get(j).complect.charAt(0)
-                                && RefactoringStrings.getLastCharacter(start) == arrayOfGrammarRules.get(j).str.charAt(0)
-                                                   && arrayOfGrammarRules.get(j).shiftFlag == true){
-                       //Для случая со знаком
-                       if((getArrayOfLexemesWithUserExpression()[i].charAt(0) == '*'
-                               || getArrayOfLexemesWithUserExpression()[i].charAt(0) == '/'
-                                    || getArrayOfLexemesWithUserExpression()[i].charAt(0) == '-'
-                                        || getArrayOfLexemesWithUserExpression()[i].charAt(0) == '+')
-                                            &&RefactoringStrings.getLastCharacter(start)=='A'){
-                                            String temp= new String(remuvArgument(getArrayOfLexemesWithUserExpression(),i,start));
-                                            if(start.equals(temp)== false){
-                                                start=temp;
-                                                arrayOfNumbersOfGrammarRules.add(j);
-                                                j=0;
-                                            }else{
-                                                    System.err.println("Error(1). Для случая со знаком");
-                                                    analizInfo.errorFlag =true;
-                                                    analizInfo.arrayIndexesOfIncorrectLexeme.add(i);
-                                                    zamenaSimbola=false;
-                                                    break;
-                                                   // break exit;
-                                            }
-                       //Правила модифицируют строку start и переходять на
-                       // следующий элемент массива лексем
-                       }else{
-                           start=RefactoringStrings.RefactoringStr(start, arrayOfGrammarRules.get(j).zamena);
-                           arrayOfNumbersOfGrammarRules.add(j);
-                           j=0;
-                       }
-                }
-
-                if(getArrayOfLexemesWithUserExpression()[i].charAt(0)== arrayOfGrammarRules.get(j).complect.charAt(0)&&
-                   RefactoringStrings.getLastCharacter(start)== arrayOfGrammarRules.get(j).str.charAt(0)&&
-                                                                   arrayOfGrammarRules.get(j).shiftFlag ==false){
-
-                    start=RefactoringStrings.RefactoringStr(start, arrayOfGrammarRules.get(j).zamena);
-                    ///отладка ошибок
-                    arrayOfNumbersOfGrammarRules.add(j);
-                    zamenaSimbola=true;
-                    break;
-                }
-            }
-            if(zamenaSimbola==false){
-                analizInfo.errorFlag =true;
-                System.err.println("Error. Don't true expression!(1)");
-                break;
-            }
-        }
-    }
-
-    private void init(){
-        arrayOfGrammarRules = new ArrayList<Bukva>();
-        arrayOfGrammarRules.add(new I("(","AS"));      //0
-        arrayOfGrammarRules.add(new I("min","AM"));    //1
-        arrayOfGrammarRules.add(new I("max","AM"));    //2
-        arrayOfGrammarRules.add(new I("^","AK"));      //3
-        arrayOfGrammarRules.add(new I("sqrt","AK"));   //4
-
-        arrayOfGrammarRules.add(new I("0","AN"));      //5
-        arrayOfGrammarRules.add(new I("1","AN"));      //6
-        arrayOfGrammarRules.add(new I("2","AN"));      //7
-        arrayOfGrammarRules.add(new I("3","AN"));      //8
-        arrayOfGrammarRules.add(new I("4","AN"));      //9
-        arrayOfGrammarRules.add(new I("5","AN"));      //10
-        arrayOfGrammarRules.add(new I("6","AN"));      //11
-        arrayOfGrammarRules.add(new I("7","AN"));      //12
-        arrayOfGrammarRules.add(new I("8","AN"));      //13
-        arrayOfGrammarRules.add(new I("9","AN"));      //14
-
-        arrayOfGrammarRules.add(new A("+","ANY",true));//15
-        arrayOfGrammarRules.add(new A("+","AMY",true));//16
-        arrayOfGrammarRules.add(new A("+","AKY",true));//17
-        arrayOfGrammarRules.add(new A("+","ASY",true));//18
-        arrayOfGrammarRules.add(new A("+","AY",true)); //19
-        arrayOfGrammarRules.add(new A("-","ANY",true));//20
-        arrayOfGrammarRules.add(new A("-","AMY",true));//21
-        arrayOfGrammarRules.add(new A("-","AKY",true));//22
-        arrayOfGrammarRules.add(new A("-","ASY",true));//23
-        arrayOfGrammarRules.add(new A("-","AY",true));//24
-
-        arrayOfGrammarRules.add(new A("*","ANY",true));//25
-        arrayOfGrammarRules.add(new A("*","AMY",true));//26
-        arrayOfGrammarRules.add(new A("*","AKY",true));//27
-        arrayOfGrammarRules.add(new A("*","ASY",true));//28
-        arrayOfGrammarRules.add(new A("*","AY",true)); //29
-
-        arrayOfGrammarRules.add(new A("/","ANY",true));//30
-        arrayOfGrammarRules.add(new A("/","AMY",true));//31
-        arrayOfGrammarRules.add(new A("/","AKY",true));//32
-        arrayOfGrammarRules.add(new A("/","ASY",true));//33
-        arrayOfGrammarRules.add(new A("/","AY",true)); //34
-
-        arrayOfGrammarRules.add(new A("0","AN",true));//35
-        arrayOfGrammarRules.add(new A("1","AN",true));//36
-        arrayOfGrammarRules.add(new A("2","AN",true));//37
-        arrayOfGrammarRules.add(new A("3","AN",true));//38
-        arrayOfGrammarRules.add(new A("4","AN",true));//39
-        arrayOfGrammarRules.add(new A("5","AN",true));//40
-        arrayOfGrammarRules.add(new A("6","AN",true));//41
-        arrayOfGrammarRules.add(new A("7","AN",true));//42
-        arrayOfGrammarRules.add(new A("8","AN",true));//43
-        arrayOfGrammarRules.add(new A("9","AN",true));//44
-
-        arrayOfGrammarRules.add(new A("(","AS",true));//45
-        arrayOfGrammarRules.add(new A(")","AS",true));//46
-        arrayOfGrammarRules.add(new A("min","AM",true));//47
-        arrayOfGrammarRules.add(new A("max","AM",true));//48
-        arrayOfGrammarRules.add(new A("^","AK",true));  //49
-        arrayOfGrammarRules.add(new A("sqrt","AK",true));//50
-
-        arrayOfGrammarRules.add(new S(")",""));        //51
-        arrayOfGrammarRules.add(new S("(",""));        //52
-
-        arrayOfGrammarRules.add(new N("0",""));        //53
-        arrayOfGrammarRules.add(new N("1",""));        //54
-        arrayOfGrammarRules.add(new N("2",""));        //55
-        arrayOfGrammarRules.add(new N("3",""));        //56
-        arrayOfGrammarRules.add(new N("4",""));        //57
-        arrayOfGrammarRules.add(new N("5",""));        //58
-        arrayOfGrammarRules.add(new N("6",""));        //59
-        arrayOfGrammarRules.add(new N("7",""));        //60
-        arrayOfGrammarRules.add(new N("8",""));        //61
-        arrayOfGrammarRules.add(new N("9",""));        //62
-
-        arrayOfGrammarRules.add(new K("sqrt","ASAS")); //63
-        arrayOfGrammarRules.add(new K("^","ANSNS"));   //64
-
-        arrayOfGrammarRules.add(new M("min","ASN,NS"));//65
-        arrayOfGrammarRules.add(new M("max","ASN,NS"));//66
-
-        arrayOfGrammarRules.add(new Y("+",""));        //67
-        arrayOfGrammarRules.add(new Y("-",""));        //68
-        arrayOfGrammarRules.add(new Y("/",""));        //69
-        arrayOfGrammarRules.add(new Y("*",""));        //70
-        arrayOfGrammarRules.add(new Bukva(",",",",""));//71
-        arrayOfGrammarRules.add(new A("$",""));        //72
-
-   }
-
-
-
-
-    private String remuvArgument(String[] aLexemList,int indexLexemList,String aStart){
-          switch(aLexemList[indexLexemList+1].charAt(0)){
-              case 'm':
-                  return RefactoringStrings.RefactoringStr(aStart,"AMY");
-
-              case 's':
-                  return RefactoringStrings.RefactoringStr(aStart,"AKY");
-              case '^':
-                  return RefactoringStrings.RefactoringStr(aStart,"AKY");
-              case '0':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '1':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '2':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '3':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '4':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '5':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '6':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '7':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '8':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case '9':
-                  return RefactoringStrings.RefactoringStr(aStart,"ANY");
-              case ')':
-                  return RefactoringStrings.RefactoringStr(aStart,"ASY");
-              case '(':
-                  return RefactoringStrings.RefactoringStr(aStart,"ASY");
-          }
-
-          return aStart;
-      }
-
-
-    /**
-     * @return the arrayOflexemesWithUserExpression
-     */
-    public String[] getArrayOfLexemesWithUserExpression() {
-        return arrayOflexemesWithUserExpression;
-    }
 
 
     // Start (Проверка на коректность грамматики и скобок)
-    public void checkStr(String[] inputExpression,SetGrammar grammarElements){
+    public void checkStr(String[] inputExpression,SetGrammar grammarElements)
+    {
         boolean counterErrors=true;
         int  counterErrorsInt=0;
         int BracersFlag=0;
@@ -332,7 +150,8 @@ public class AnalizInputStringToCorectExsspresion {
 
     }
 
-    public static String[] checkStrHelp(String[] inputExpression){
+    public static String[] checkStrHelp(String[] inputExpression)
+    {
         for (int j=0;j<inputExpression.length;j++){
             if(((int)inputExpression[j].charAt(0)>47) && ((int)inputExpression[j].charAt(0)<58)){
                 inputExpression[j]=inputExpression[j].charAt(0)+"";
@@ -345,11 +164,11 @@ public class AnalizInputStringToCorectExsspresion {
       //-------------------------------------------------------------------------------
 
 
-    private String remuvArgument2(String[] aLexemList,int indexLexemList,String aStart){
+    private String remuvArgument2(String[] aLexemList,int indexLexemList,String aStart)
+    {
         switch(aLexemList[indexLexemList+1].charAt(0)){
             case 'm':
                 return RefactoringStrings.RefactoringStr(aStart,"AM");
-
             case 's':
                 return RefactoringStrings.RefactoringStr(aStart,"AK");
             case '^':
@@ -389,7 +208,8 @@ public class AnalizInputStringToCorectExsspresion {
         return aStart;
     }
 
-    private void init1(){
+    private void init1()
+    {
         arrayOfGrammarRules2 = new ArrayList<Bukva[]>();
 
         I[] iArray = { new I("0","AN"),new I("1","AN"),new I("2","AN"),new I("3","AN"),new I("4","AN"),
@@ -447,13 +267,11 @@ public class AnalizInputStringToCorectExsspresion {
 
     // Area of experements
 
-    public void AnalitExpression2(){
-        boolean zamenaSimbola=false;
+    public void AnalitExpression2()
+    {
         boolean sel=false;
-
         //cs:: st-1
-
-
+        //Для первой замены
         exit1: for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
                 if('I' == arrayOfGrammarRules2.get(f)[0].str.charAt(0)){
                     for (int j = 0; j < arrayOfGrammarRules2.get(f).length; j++) {
@@ -476,26 +294,18 @@ public class AnalizInputStringToCorectExsspresion {
                 }
             }
 
-
         if(sel==false) {
             System.err.println("Error(7061):: Первый символ находится не на свое месте!");
             analizInfo.arrayOfNumbersOfErrors.add(7061);
             analizInfo.arrayIndexesOfIncorrectLexeme.add(0);
             return;
         }
-
-
-
-
-
-
+        //Последующие замены
 exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) { // по пользлвательским символам
 
     toNext:for (int f = 0; f < arrayOfGrammarRules2.size(); f++) {
                 if(RefactoringStrings.getLastCharacter(start) == arrayOfGrammarRules2.get(f)[0].str.charAt(0) &&
                         arrayOfGrammarRules2.get(f)[0].str.charAt(0) != 'I'){
-
-
                     for (int j = 0; j < arrayOfGrammarRules2.get(f).length; j++) {
                         sel=false;
                         //cs:: end-1
@@ -510,7 +320,6 @@ exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) 
                                     &&RefactoringStrings.getLastCharacter(start)=='A')
                             {
                                 String temp= new String(remuvArgument2(getArrayOfLexemesWithUserExpression(),i,start));
-
                                 if(start.equals(temp)== false){
                                     start=temp;
                                     Integer[] ka1 = new Integer[2];
@@ -531,7 +340,6 @@ exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) 
                                 //Правила модифицируют строку start и переходять на
                                 // следующий элемент массива лексем
                             }
-
                             else
                             {
                                 start=RefactoringStrings.RefactoringStr(start, arrayOfGrammarRules2.get(f)[j].zamena);
@@ -544,9 +352,6 @@ exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) 
                                 break;
                             }
                         }
-
-
-
 
                         if(getArrayOfLexemesWithUserExpression()[i].charAt(0)== arrayOfGrammarRules2.get(f)[j].complect.charAt(0)&&
                                 arrayOfGrammarRules2.get(f)[j].shiftFlag ==false){
@@ -577,7 +382,6 @@ exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) 
         }
         //cs:: end-2
     }
-
     public void showListUsedReules2(){
             for(int i=0;i<view.size(); i++){
                   System.out.println( (i+1)+". "+
