@@ -12,7 +12,7 @@ import kaa.calculator.view.analysis.result.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("/25$");
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("(min(2521$)$)$");
         AnalizInfo analizInfo = analiz.runAnalizExpression();
         String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
         /*System.out.println("Start: "+ analizInfo.start);
