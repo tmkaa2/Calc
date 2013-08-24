@@ -4,10 +4,10 @@
  */
 package calculator.test;
 
-import kaa.calculator.controler.analiz.AnalizInputStringToCorectExsspresion;
+import kaa.calculator.controler.analiz.AnalysisInputStringToCorectExsspresionn;
+import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
 import kaa.calculator.model.SetGrammar;
-import kaa.calculator.view.analysis.result.AnalizInfo;
-import kaa.calculator.controler.analiz.str.SplitExpressionAtArrayList;
+import kaa.calculator.model.analysis.result.AnalysisInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,13 +19,13 @@ import java.util.Arrays;
  */
 public class TestString {
    public static  void  main(String[] arg){
-       AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("^(h5h)2");
-       AnalizInfo rez=analiz.runAnalizExpression();
+       AnalysisInputStringToCorectExsspresionn analiz = new AnalysisInputStringToCorectExsspresionn("^(h5h)2");
+       AnalysisInfo rez=analiz.runAnalizExpression();
 
        //temp Start
        SetGrammar sets=new SetGrammar(new ArrayList<String>(Arrays.asList("+","-","/","*","0","1","2","3","4","5","6",
                                                                           "7","8","9","(",")","min","max","^","sqrt")));
-       String[] rezz= SplitExpressionAtArrayList.ParsStringPart("(36+(5-(89-9690)))");
+       String[] rezz= SplitExpressionInArrayList.ParsStringPart("(36+(5-(89-9690)))");
        System.out.println("\n----");
        for(String sss:rezz){
            System.out.print(sss+" ");

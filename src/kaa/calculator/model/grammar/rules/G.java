@@ -1,17 +1,18 @@
-package kaa.calculator.model.charters;
+package kaa.calculator.model.grammar.rules;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Mr.Green
  * Date: 21.08.13
- * Time: 20:47
+ * Time: 20:44
  * To change this template use File | Settings | File Templates.
  */
-public class Z extends Bukva {
-    public Z(String aComplect,String aZamena, boolean aStur){
+public class G extends Bukva {
+    public G(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
-        str="Z";
+        str="G";
         shiftFlag =aStur;
+        ///shiftFlag=true;
     }
 }

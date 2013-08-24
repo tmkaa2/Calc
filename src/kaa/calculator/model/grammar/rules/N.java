@@ -1,4 +1,4 @@
-package kaa.calculator.model.charters;
+package kaa.calculator.model.grammar.rules;
 
 public class N extends Bukva{
    public N(String aComplect,String aZamena){

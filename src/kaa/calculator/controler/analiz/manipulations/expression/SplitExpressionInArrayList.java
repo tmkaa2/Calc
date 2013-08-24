@@ -1,13 +1,13 @@
 
-package kaa.calculator.controler.analiz.str;
+package kaa.calculator.controler.analiz.manipulations.expression;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SplitExpressionAtArrayList {
+public class SplitExpressionInArrayList {
 
-    private SplitExpressionAtArrayList(){};
+    private SplitExpressionInArrayList(){};
     public static String[] ParsStringPart(String inputString){
         
         inputString = inputString.replace(" ", "");
@@ -85,10 +85,9 @@ public class SplitExpressionAtArrayList {
          return lexem;       
      }
      // Add the "$" symbol  to the end  string and places where's this to need 
-     public static String[] addToStrinArray$(String[] aArrayString){
+     public static String[] addToStrinArray$(String[] aArrayString)
+     {
         List<String> StringList = new ArrayList<String>(Arrays.asList(aArrayString));
-        boolean flagBrackets=false;     
-     
         for (int i = 0; i < StringList.size(); i++) {
              if(StringList.get(i).equals(")")){
                   StringList.add(i,"$");
@@ -105,6 +104,6 @@ public class SplitExpressionAtArrayList {
             }
         }
         StringList.add(StringList.size(),"$");
-       return StringList.toArray(new String[StringList.size()]);
-    }
+        return StringList.toArray(new String[StringList.size()]);
+     }
 }

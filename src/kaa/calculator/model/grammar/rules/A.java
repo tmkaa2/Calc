@@ -2,22 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package kaa.calculator.model.charters;
+package kaa.calculator.model.grammar.rules;
 
 /**
  *
  * @author Mr.Green
  */
-public class M extends Bukva{
-        public M(String aComplect,String aZamena){
+public class A extends Bukva{
+    public A(String aComplect,String aZamena){
         complect=aComplect;
         zamena=aZamena;
-        str="M";
+        str="A";
+        ///shiftFlag=true;
     }
-    public M(String aComplect,String aZamena, boolean aStur){
+    
+     public A(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
-        str="M";
+        str="A";
         shiftFlag =aStur;
         ///shiftFlag=true;
     }

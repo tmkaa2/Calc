@@ -1,9 +1,9 @@
-package kaa.calculator.view.analysis.result;
+package kaa.calculator.model.analysis.result;
 
 import java.util.ArrayList;
 
-public class AnalizInfo {
-    public AnalizInfo(){
+public class AnalysisInfo {
+    public AnalysisInfo(){
         arrayOfNumbersOfErrors = new ArrayList<Integer>();
         arrayIndexesOfIncorrectLexeme = new ArrayList<Integer>();
         // temp lines

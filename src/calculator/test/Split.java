@@ -1,6 +1,6 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.str.HelperSplitExpression;
+import kaa.calculator.controler.analiz.manipulations.expression.HelperSplitExpression;
 
 public class Split {
     public static void main(String[] args) {

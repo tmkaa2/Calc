@@ -4,7 +4,7 @@
  */
 package calculator.test;
 
-import kaa.calculator.model.charters.*;
+import kaa.calculator.model.grammar.rules.*;
 
 import java.util.ArrayList;
 

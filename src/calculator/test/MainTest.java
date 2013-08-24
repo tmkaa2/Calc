@@ -1,8 +1,8 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.str.SplitExpressionAtArrayList;
-import kaa.calculator.model.charters.*;
-import kaa.calculator.controler.analiz.str.RefactoringStrings;
+import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
+import kaa.calculator.model.grammar.rules.*;
+import kaa.calculator.controler.analiz.manipulations.expression.RefactoringStrings;
 import java.util.ArrayList;
 
 public class MainTest {
@@ -12,9 +12,9 @@ public class MainTest {
        MainTest obj = new MainTest();
      //  obj.init();
        
-       String[] inPutLexemList = SplitExpressionAtArrayList.ParsStringPart("(min(33,75)-((min(25,98)+(((((sqrt(23652+68+68+98)+89)+(96+63/^(5*8+625-54/55)5))*sqrt(95)))))))");
+       String[] inPutLexemList = SplitExpressionInArrayList.ParsStringPart("(min(33,75)-((min(25,98)+(((((sqrt(23652+68+68+98)+89)+(96+63/^(5*8+625-54/55)5))*sqrt(95)))))))");
        //Add for add$ to String arrays simbol "$"
-       inPutLexemList=SplitExpressionAtArrayList.addToStrinArray$(inPutLexemList); 
+       inPutLexemList= SplitExpressionInArrayList.addToStrinArray$(inPutLexemList);
        for (String string : inPutLexemList) {
             System.out.print(string);
         }
@@ -198,7 +198,7 @@ public class MainTest {
         listRulse.add(new A("$",""));   //72
         /*
         for (Bukva ls : list) {
-            System.out.print(ls.str+" ");
+            System.out.print(ls.manipulations+" ");
         }
         System.out.println("");
         for (Bukva ls : list) {

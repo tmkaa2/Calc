@@ -1,7 +1,7 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.AnalizInputStringToCorectExsspresion;
-import kaa.calculator.view.analysis.result.AnalizInfo;
+import kaa.calculator.controler.analiz.AnalysisInputStringToCorectExsspresionn;
+import kaa.calculator.model.analysis.result.AnalysisInfo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,19 +12,14 @@ import kaa.calculator.view.analysis.result.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        //(((((^(25+96+96+85*7)25+29+min(25*87-96+96/85,25-96))))))
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("sqrt(5)");
-        AnalizInfo analizInfo = analiz.runAnalizExpression();
-        String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
-        /*System.out.println("Start: "+ analizInfo.start);
-        System.out.println("Position cursor: ('"+lexem[analizInfo.arrayIndexesOfIncorrectLexeme.get(0)+1]+
-                                               "') Index: "+ analizInfo.arrayIndexesOfIncorrectLexeme +
-                                               "Numbers errorFlag: "+ analizInfo.arrayOfNumbersOfErrors);*/
-        if(analizInfo.errorFlag == true)
-            System.err.println("Error:"+ analizInfo.errorFlag);
+        AnalysisInputStringToCorectExsspresionn analiz = new AnalysisInputStringToCorectExsspresionn("sqrt(5)+(1+min(5,6))");
+        AnalysisInfo analysisInfo = analiz.runAnalizExpression();
+        String[] lexem = analysisInfo.arrayOflexemesWithCustomExpression;
+        if(analysisInfo.errorFlag == true)
+            System.err.println("Error:"+ analysisInfo.errorFlag);
         else
-            System.out.println("Error:"+ analizInfo.errorFlag);
+            System.out.println("Error:"+ analysisInfo.errorFlag);
 
-        analiz.showListUsedReules2();
+        analiz.showListUsedReules();
     }
 }
