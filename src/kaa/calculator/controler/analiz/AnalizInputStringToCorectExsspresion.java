@@ -53,7 +53,19 @@ public class AnalizInputStringToCorectExsspresion {
         //Исключительный ситуации   ok
         //checkStrHELPER(arrayOflexemesWithUserExpression);
         // Добавление завершающих символов до для распознавания LL(1)-грамматики
+
+        for(String str : arrayOflexemesWithUserExpression){
+            System.out.print(str + " ");
+        }
+        System.out.println("");
+
         arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
+
+        for(String str : arrayOflexemesWithUserExpression){
+            System.out.print(str + " ");
+        }
+        System.out.println("");
+
         System.out.println("Line start:["+start+"]");
 
         if(analizInfo.errorFlag ==false){

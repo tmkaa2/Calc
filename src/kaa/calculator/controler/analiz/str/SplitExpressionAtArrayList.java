@@ -89,25 +89,22 @@ public class SplitExpressionAtArrayList {
         List<String> StringList = new ArrayList<String>(Arrays.asList(aArrayString));
         boolean flagBrackets=false;     
      
-        for (int i = 0; i < StringList.size()-1; i++) {
-            if(StringList.get(i).equals("min")== true ||
-                      StringList.get(i).equals("max")== true ||
-                           StringList.get(i).equals("^")== true){
-                  StringList.add(StringList.size(),"$");
-             } 
-            if(StringList.get(i).equals("sqrt")== true && StringList.get(i+1).equals("(")==true){
-                   flagBrackets=true;
-                   continue;
+        for (int i = 0; i < StringList.size(); i++) {
+             if(StringList.get(i).equals(")")){
+                  StringList.add(i,"$");
+                 if((StringList.size()-1 <= i+1))
+                     break;
+                 i+=1;
              }
-             if(flagBrackets == true && StringList.get(i+1).equals(")")){
-                  StringList.add(i+1,"$");
-                  StringList.add(StringList.size(),"$");
-                  flagBrackets=false;
-                  continue;
-             }
+
+            if(StringList.get(i).equals(",")){
+                StringList.add(i,"$");
+                if((StringList.size()-1 <= i+1))
+                    break;
+                i+=1;
+            }
         }
         StringList.add(StringList.size(),"$");
-
        return StringList.toArray(new String[StringList.size()]);
     }
 }
