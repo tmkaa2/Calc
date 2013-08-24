@@ -45,18 +45,19 @@ public class AnalizInputStringToCorectExsspresion {
 
         //Выделяет каждый элемент выражения в отдельную строку
         arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.ParsStringPart(userExpression);
-
         // Проверка на коректность выражения + добавления информации о ошибках
-    /*   checkStr(arrayOflexemesWithUserExpression,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
+        /*checkStr(arrayOflexemesWithUserExpression,new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
                                                                                    "3", "4", "5", "6","7", "8", "9",
                                                                                    "(", ")", "min", "max", "^", "sqrt",","
-                                                                                                                   ))));
-      */  // Добавление завершающих символов до для распознавания LL(1)-грамматики
-      // arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
+                                                                                                                   ))));*/
+        //Исключительный ситуации   ok
+        //checkStrHELPER(arrayOflexemesWithUserExpression);
+        // Добавление завершающих символов до для распознавания LL(1)-грамматики
+        arrayOflexemesWithUserExpression = SplitExpressionAtArrayList.addToStrinArray$(getArrayOfLexemesWithUserExpression());
         System.out.println("Line start:["+start+"]");
 
         if(analizInfo.errorFlag ==false){
-           AnalitExpression2();
+            AnalitExpression2();
             System.out.println("Отработало");
         }
 
@@ -238,7 +239,8 @@ public class AnalizInputStringToCorectExsspresion {
         Y[] yArray = { new Y("+",""),new Y("-","") ,new Y("/",""),new Y("*","")};
         G[] gArray = { new G("(","A)A(",true)};
         J[] jArray = { new J("(",")A(",true)};
-        Z[] zArray = { new Z("(",")N,N(",true)};
+        //Z[] zArray = { new Z("(",")N,N(",true)};
+        Z[] zArray = { new Z("(",")A,A(",true)};
 
         Bukva[] t1 = { new Bukva(",",",","")};
         Bukva[] t2 = { new Bukva("(","(","")};
@@ -391,6 +393,175 @@ exitT:   for (int i = 0; i < getArrayOfLexemesWithUserExpression().length; i++) 
                        + arrayOfGrammarRules2.get(view.get(i)[0])[view.get(i)[1]].shiftFlag);
             }
     }
+
+  // Исключительная ситуации Начало
+    public void checkStrHELPER(String[] inputExpression)
+    {
+        String[] modifiedInpExpr=checkStrHelp(inputExpression);
+        for (int i=0;i<modifiedInpExpr.length-2;i++){
+
+            if(modifiedInpExpr[i].equals("(") && modifiedInpExpr[i+2].equals("(")){
+                if(kaa1(modifiedInpExpr[i+1].charAt(0))){
+                    System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
+                    System.err.println("Error(800).");
+                    return;
+                }
+            }
+
+            if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+2].equals(")") ){
+                    if(kaa1(modifiedInpExpr[i+1].charAt(0))){
+                        System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
+                        System.err.println("Error(800).");
+                        return;
+                    }
+
+            }
+
+            if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+2].equals("(") ){
+                    if(kaa2(modifiedInpExpr[i+1].charAt(0))){
+                        System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
+                        System.err.println("Error(802).");
+                        return;
+                    }
+            }
+        }
+
+        for (int i=0;i<modifiedInpExpr.length-1;i++){
+            if(modifiedInpExpr[i].equals(",") && kaa3(modifiedInpExpr[i+1].charAt(0))){
+                System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1].charAt(0));
+                System.err.println("Error(803).");
+            }
+        }
+
+        if(modifiedInpExpr.length > 2){
+            if(modifiedInpExpr[modifiedInpExpr.length-2].equals(")") && kaa4(modifiedInpExpr[modifiedInpExpr.length-1].charAt(0))){
+                System.err.println(modifiedInpExpr[modifiedInpExpr.length-2]+":"+modifiedInpExpr[modifiedInpExpr.length-1]);
+                System.err.println("Error(804).");
+            }
+        }
+    }
+
+    public boolean kaa1(char aStr){
+        switch (aStr){
+            case '0':
+                return true ;
+            case '1':
+                return true ;
+            case '2':
+                return true ;
+            case '3':
+                return true ;
+            case '4':
+                return true ;
+            case '5':
+                return true ;
+            case '6':
+                return true ;
+            case '7':
+                return true ;
+            case '8':
+                return true ;
+            case '9':
+                return true ;
+            case '-':
+                return true ;
+            case '+':
+                return true ;
+            case '/':
+                return true ;
+            case '*':
+                return true ;
+        }
+        return false;
+    }
+
+    public boolean kaa2(char aStr){
+        switch (aStr){
+            case '0':
+                return true ;
+            case '1':
+                return true ;
+            case '2':
+                return true ;
+            case '3':
+                return true ;
+            case '4':
+                return true ;
+            case '5':
+                return true ;
+            case '6':
+                return true ;
+            case '7':
+                return true ;
+            case '8':
+                return true ;
+            case '9':
+                return true ;
+            case 'm':
+                return true ;
+            case '^':
+                return true ;
+            case 's':
+                return true ;
+        }
+        return false;
+    }
+
+    public boolean kaa3(char aStr){
+        switch (aStr){
+
+            case '+':
+                return true ;
+            case '-':
+                return true ;
+            case '/':
+                return true ;
+            case '*':
+                return true ;
+        }
+        return false;
+    }
+
+    public boolean kaa4(char aStr){
+        switch (aStr){
+            case '0':
+                return true ;
+            case '1':
+                return true ;
+            case '2':
+                return true ;
+            case '3':
+                return true ;
+            case '4':
+                return true ;
+            case '5':
+                return true ;
+            case '6':
+                return true ;
+            case '7':
+                return true ;
+            case '8':
+                return true ;
+            case '9':
+                return true ;
+            case 'm':
+                return true ;
+            case '^':
+                return true ;
+            case 's':
+                return true ;
+            case '+':
+                return true ;
+            case '-':
+                return true ;
+            case '/':
+                return true ;
+            case '*':
+                return true ;
+        }
+        return false;
+    }
+    // Исключительная ситуации Конец
 }
 
 

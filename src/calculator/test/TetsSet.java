@@ -12,8 +12,9 @@ import kaa.calculator.view.analysis.result.AnalizInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("(min(25,36)+69/sqrt(25/96*74-12+3+max(45,36)$)$)-^(69+32+14-89*8/7$)58$");
-      //  AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("(min(25,36)+69/sqrt(25/96*74-12+3+max(45,36)))-^(69+32+14-89*8/7)58");
+        AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("^(25$)25+29$");
+       // AnalizInputStringToCorectExsspresion analiz = new AnalizInputStringToCorectExsspresion("((min(25,36)+69/sqrt(25/96*(74-12)+(3+max(45,36))))-^(69+32+14-89*8/7))");
+        //(min(25,36)+69/sqrt(25/96*74-12+3+max(45,36$)$)$)-^(69+32+14-89*8/7$)58$
         AnalizInfo analizInfo = analiz.runAnalizExpression();
         String[] lexem = analizInfo.arrayOflexemesWithCustomExpression;
         /*System.out.println("Start: "+ analizInfo.start);
