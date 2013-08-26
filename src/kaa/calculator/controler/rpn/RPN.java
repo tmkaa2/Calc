@@ -1,5 +1,8 @@
 package kaa.calculator.controler.rpn;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import kaa.calculator.controler.rpn.stack.StackList;
 
 /**
@@ -25,6 +28,10 @@ public class RPN {
     public ArrayList<String> convertToRPN2(String[] aArrayOfLexemesWithUserExpression)
     {
         arrayOfLexemesWithUserExpression=aArrayOfLexemesWithUserExpression;
+        arrayOfLexemesWithUserExpression=helpForOperation();
+        for(String s : arrayOfLexemesWithUserExpression)
+            System.out.print(s + " ");
+
 
         for(int i=0;i<arrayOfLexemesWithUserExpression.length;i++){
 
@@ -33,8 +40,10 @@ public class RPN {
 
             if(checkOperationsB(arrayOfLexemesWithUserExpression[i].charAt(0))){
                 if(stuck.size()!=0){
-                    while(checkPriorityOperations(arrayOfLexemesWithUserExpression[i].charAt(0))< checkPriorityOperations(stuck.getTopElement().charAt(0)) ){
+                    while(checkPriorityOperations(arrayOfLexemesWithUserExpression[i].charAt(0))< checkPriorityOperations(stuck.getTopElement().charAt(0)) && !stuck.getTopElement().equals("(")){
                         rpn.add(stuck.pop());
+                        if(stuck.size()==0)
+                            break;
                     }
                     stuck.push(arrayOfLexemesWithUserExpression[i]);
                 }
@@ -128,13 +137,41 @@ public class RPN {
         return false;
     }
 
+    private String[] helpForOperation(){
+        boolean flag= false;
+        int blance=0;
+        List<String> stringList = new ArrayList<String>(Arrays.asList(arrayOfLexemesWithUserExpression));
+
+            for(int i =0;i<stringList.size()-1;i++){
+                 if(stringList.get(i).equals("^")){
+                     flag = true;
+                     stringList.remove(i);
+                    // continue;
+                 }
+                if(stringList.get(i).equals("(") && flag ){
+                     blance++;
+                }
+                if(stringList.get(i).equals(")") && flag ){
+                    blance--;
+                }
+                if(blance == 0 && checkNum(stringList.get(i+1).charAt(0)) && flag){
+                    i++;
+                    stringList.add(i,"^");
+                    flag=false;
+                }
+            }
+        return stringList.toArray(new String[stringList.size()]);
+    }
+
+
     public static void main(String[] args) {
         RPN tets = new RPN();
         // ok1 ex ={"(","(","22","-","24",")","/","2","*","21","/","(","5","+","2",")",")"};
-        // ok ex ={"8","-","1259","*","(","2","+","9","/","89",")"};
-        // ok ex ={"25","-","36","+","(","(","2","+","9",")","/","89","+","(","23","*","94",")",")"};
-        // ok ex ={"60","-","30","+","sqrt","(","4","*","(","12","-","4",")","/","(","20","-","18",")",")","/","4"};
-        String[] ex ={"(","(","22","-","24",")","/","2","*","21","/","(","5","+","2",")",")"};
+        // ok1 ex ={"8","-","1259","*","(","2","+","9","/","89",")"};
+        // ok1 ex ={"25","-","36","+","(","(","2","+","9",")","/","89","+","(","23","*","94",")",")"};
+        // ok1 ex ={"60","-","30","+","sqrt","(","4","*","(","12","-","4",")","/","(","20","-","18",")",")","/","4"};
+        // ok1 ex ={"^","(","22","-","24","*","60","-","30",")","30","+","^","(","22","-","24",")","25","+","sqrt","(","4","*","(","12","-","4",")","/","(","20","-","18",")",")","/","4"};
+        String[]  ex ={"(","21","+","(","(","(","(","(","(","(","(","22","-","24",")","*","124",")",")",")",")",")",")",")",")"};
         for (String ss: ex){
             System.out.print(ss+" ");
         }
@@ -142,6 +179,7 @@ public class RPN {
 
         ArrayList<String> ex1=tets.convertToRPN2(ex);
 
+        System.out.println("");
         for (String ss: ex1){
             System.out.print("["+ss+"] ");
         }
