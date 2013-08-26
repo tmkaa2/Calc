@@ -4,7 +4,7 @@
  */
 package calculator.test;
 
-import kaa.calculator.controler.analiz.AnalysisInputStringToCorectExsspresionn;
+import kaa.calculator.controler.analiz.AnalysisInputStringToCorrectExpressionn;
 import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
 import kaa.calculator.model.SetGrammar;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
@@ -19,8 +19,8 @@ import java.util.Arrays;
  */
 public class TestString {
    public static  void  main(String[] arg){
-       AnalysisInputStringToCorectExsspresionn analiz = new AnalysisInputStringToCorectExsspresionn("^(h5h)2");
-       AnalysisInfo rez=analiz.runAnalizExpression();
+       AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn("^(h5h)2");
+       AnalysisInfo rez=analiz.runAnalysisExpression();
 
        //temp Start
        SetGrammar sets=new SetGrammar(new ArrayList<String>(Arrays.asList("+","-","/","*","0","1","2","3","4","5","6",
@@ -31,19 +31,8 @@ public class TestString {
            System.out.print(sss+" ");
        }
        System.out.println("\n----");
-       //temp End
 
-       //Test
        checkStr(rezz,sets);
-
-
-
-     //  if(result.errorFlag==false && result.start.length()==0 ){
-     //      analiz.showListUsedReules();
-     //  }else{
-     //      System.err.println("We have problems");
-     //  }
-       
    }
 
     public static void checkStr(String[] inputExpression,SetGrammar grammarElements){
