@@ -29,9 +29,6 @@ public class RPN {
     {
         arrayOfLexemesWithUserExpression=aArrayOfLexemesWithUserExpression;
         arrayOfLexemesWithUserExpression=helpForOperation();
-        for(String s : arrayOfLexemesWithUserExpression)
-            System.out.print(s + " ");
-
 
         for(int i=0;i<arrayOfLexemesWithUserExpression.length;i++){
 
@@ -60,7 +57,6 @@ public class RPN {
                 while(!stuck.getTopElement().equals("(")){
                     rpn.add(stuck.pop());
                 }
-                //stuck.pop();
             }
 
             if(arrayOfLexemesWithUserExpression[i].equals(")")){
@@ -153,7 +149,6 @@ public class RPN {
                  if(stringList.get(i).equals("^")){
                      flag = true;
                      stringList.remove(i);
-                    // continue;
                  }
                 if(stringList.get(i).equals("(") && flag ){
                      blance++;
@@ -170,7 +165,7 @@ public class RPN {
         return stringList.toArray(new String[stringList.size()]);
     }
 
-
+   /*
     public static void main(String[] args) {
         RPN tets = new RPN();
         // ok1 ex ={"(","(","22","-","24",")","/","2","*","21","/","(","5","+","2",")",")"};
@@ -192,5 +187,5 @@ public class RPN {
             System.out.print("["+ss+"] ");
         }
     }
-
+     */
 }
