@@ -38,6 +38,8 @@ public class AnalysisInputStringToCorrectExpressionn {
                 "3", "4", "5", "6", "7", "8", "9",
                 "(", ")", "min", "max", "^", "sqrt", ","
         ))));
+        if(analysisInfo.errorFlag)
+            return analysisInfo;
         checkExpressionOnTheErrorsPartTwo(arrayOfLexemesWithUserExpression);
         arrayOfLexemesWithUserExpression = SplitExpressionInArrayList.addToStrinArray$(arrayOfLexemesWithUserExpression);
 
@@ -307,6 +309,7 @@ public class AnalysisInputStringToCorrectExpressionn {
                         analysisInfo.errorFlag =true;
                         analysisInfo.arrayIndexesOfIncorrectLexeme.add(i);
                         //break exitT;
+                        System.err.println(start);
                         return;
                     }
                 }else
@@ -377,13 +380,15 @@ public class AnalysisInputStringToCorrectExpressionn {
             }
 
             if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+2].equals(")") ){
-                    if(checkCharacterFromSetOfOne(modifiedInpExpr[i + 1].charAt(0))){
-                        System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
-                        System.err.println("Error(801).");
-                        analysisInfo.arrayOfNumbersOfErrors.add(801);
-                        analysisInfo.errorFlag =true;
-                        analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
-                        return;
+                    if(checkCharacterFromSetOfFour(modifiedInpExpr[i + 1].charAt(0))){
+                        if(!sdg(i+2,modifiedInpExpr)){
+                            System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
+                            System.err.println("Error(801).");
+                            analysisInfo.arrayOfNumbersOfErrors.add(801);
+                            analysisInfo.errorFlag =true;
+                            analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                            return;
+                        }
                     }
 
             }
@@ -411,14 +416,18 @@ public class AnalysisInputStringToCorrectExpressionn {
             }
         }
 
-        if(modifiedInpExpr.length > 2){
-            if(modifiedInpExpr[modifiedInpExpr.length-2].equals(")") && checkCharacterFromSetOfFour(modifiedInpExpr[modifiedInpExpr.length - 1].charAt(0))){
-                System.err.println(modifiedInpExpr[modifiedInpExpr.length-2]+":"+modifiedInpExpr[modifiedInpExpr.length-1]);
-                System.err.println("Error(804).");
-                analysisInfo.arrayOfNumbersOfErrors.add(804);
-                analysisInfo.errorFlag =true;
-                analysisInfo.arrayIndexesOfIncorrectLexeme.add(modifiedInpExpr.length);
-                return;
+      //  if(modifiedInpExpr.length > 2){
+        for(int z=modifiedInpExpr.length-1;1<z;z--){
+            if(modifiedInpExpr[z-1].equals(")") && checkCharacterFromSetOfTwo(modifiedInpExpr[z].charAt(0))){
+                if(!sdg(z,modifiedInpExpr)){
+                    System.err.println(modifiedInpExpr[z-1]+":"+modifiedInpExpr[z]);
+                    System.err.println("Error(804).");
+                    analysisInfo.arrayOfNumbersOfErrors.add(804);
+                    analysisInfo.errorFlag =true;
+                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(modifiedInpExpr.length);
+                    return;
+                }
+
             }
         }
 
@@ -429,6 +438,21 @@ public class AnalysisInputStringToCorrectExpressionn {
                     System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]
                                                                                   +":"+modifiedInpExpr[i+3]);
                     System.err.println("Error(805).");
+                    analysisInfo.arrayOfNumbersOfErrors.add(805);
+                    analysisInfo.errorFlag =true;
+                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                    return;
+                }
+            }
+        }
+
+        for (int i=0;i<modifiedInpExpr.length-3;i++){
+
+            if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+3].equals(")")){
+                if(checkCharacterFromSetOfTwo(modifiedInpExpr[i + 1].charAt(0)) && checkCharacterFromSetOfSix(modifiedInpExpr[i + 2].charAt(0))){
+                    System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]
+                            +":"+modifiedInpExpr[i+3]);
+                    System.err.println("Error(806).");
                     analysisInfo.arrayOfNumbersOfErrors.add(805);
                     analysisInfo.errorFlag =true;
                     analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
@@ -555,6 +579,87 @@ public class AnalysisInputStringToCorrectExpressionn {
                 return true ;
             case '*':
                 return true ;
+        }
+        return false;
+    }
+
+    private boolean checkCharacterFromSetOfFive(char aStr){
+        switch (aStr){
+            case '0':
+                return true ;
+            case '1':
+                return true ;
+            case '2':
+                return true ;
+            case '3':
+                return true ;
+            case '4':
+                return true ;
+            case '5':
+                return true ;
+            case '6':
+                return true ;
+            case '7':
+                return true ;
+            case '8':
+                return true ;
+            case '9':
+                return true ;
+        }
+        return false;
+    }
+
+    private boolean checkCharacterFromSetOfSix(char aStr){
+        switch (aStr){
+
+            case '+':
+                return true ;
+            case '-':
+                return true ;
+            case '/':
+                return true ;
+            case '*':
+                return true ;
+            case 'm':
+                return true ;
+            case '^':
+                return true ;
+            case 's':
+                return true ;
+        }
+        return false;
+    }
+
+    private boolean sdg(int start,String[] modifiedInpExpr){
+        int counterBracketsL= 0;
+        int counterBracketsR= 0;
+        int flag2 =0;
+        int flag3 =0;
+        boolean flag = false;
+        for (int i=start-1;i >= 0;i--){
+            if(modifiedInpExpr[i].equals(")") && checkCharacterFromSetOfFive(modifiedInpExpr[i-1].charAt(0))){
+                flag2++;
+                flag=true;
+            }
+
+            if(modifiedInpExpr[i].equals("^")){
+                flag3++;
+            }
+
+            if(modifiedInpExpr[i].equals(")"))
+                counterBracketsL++;
+
+            if(modifiedInpExpr[i].equals("("))
+                counterBracketsR++;
+
+            if(modifiedInpExpr[i].equals("^") && counterBracketsL==counterBracketsR && flag){
+                if(flag2 != flag3){
+                    System.err.println("Error(605). Дубликат )ел");
+                    return false;
+                }else
+                return true;
+            }
+
         }
         return false;
     }

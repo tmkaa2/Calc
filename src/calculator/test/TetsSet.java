@@ -12,7 +12,7 @@ import kaa.calculator.model.analysis.result.AnalysisInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn("sqrt(5)+(1+min(5,6))");
+        AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn("(sqrt(5))+(+min(5,6))");
         AnalysisInfo analysisInfo = analiz.runAnalysisExpression();
         String[] lexem = analysisInfo.arrayOflexemesWithCustomExpression;
         if(analysisInfo.errorFlag == true)
