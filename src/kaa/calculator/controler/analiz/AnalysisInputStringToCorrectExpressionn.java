@@ -34,6 +34,7 @@ public class AnalysisInputStringToCorrectExpressionn {
     {
         initGrammarRules();
         arrayOfLexemesWithUserExpression = SplitExpressionInArrayList.ParsStringPart(userExpression);
+        analysisInfo.firstArrayOfLexemesWithUserExpression= SplitExpressionInArrayList.ParsStringPart(userExpression);
         checkExpressionOnTheErrorsPartOne(arrayOfLexemesWithUserExpression, new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
                 "3", "4", "5", "6", "7", "8", "9",
                 "(", ")", "min", "max", "^", "sqrt", ","

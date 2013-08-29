@@ -2,9 +2,12 @@ package kaa.calculator.controler.button;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import kaa.calculator.controler.analiz.AnalysisInputStringToCorrectExpressionn;
 import kaa.calculator.controler.form.ElementControlGeter;
+import kaa.calculator.controler.rpn.RPN;
+import kaa.calculator.controler.rpn.computing.RPNComputer;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
 
 /**
@@ -23,17 +26,44 @@ public class ButtonListener extends ElementControlGeter implements ActionListene
             frame.getJtaError().setText("");
             AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn(inputExpression);
             AnalysisInfo analysisInfo = analiz.runAnalysisExpression();
-
-
-
-
-
-            System.out.println((++ck)+".enter: "+inputExpression);
-
+            if(analysisInfo.errorFlag){
+                    frame.getJtaError().setText(showError(analysisInfo));
+                    frame.getJtfExpression().setFocusable(true);
+                    frame.getJtfExpression().setCaretPosition(analysisInfo.arrayIndexesOfIncorrectLexeme.get(0));
+            }
+            else{
+                RPN tets = new RPN();
+                RPNComputer com = new RPNComputer();
+                ArrayList<String> rptExpression=tets.convertToRPN2(analysisInfo.firstArrayOfLexemesWithUserExpression);
+                System.out.println(com.computing(rptExpression));
+                frame.getJtfResult().setText("="+String.valueOf(com.computing(rptExpression)));
+            }
         }else{
              frame.getJtaError().setText("Expression is empty!\nPlease enter expression.");
 
         }
 
+    }
+    String showError(AnalysisInfo aAnalysisInfo){
+        String outputStr="";
+        for (int i=0;i<aAnalysisInfo.arrayOfNumbersOfErrors.size();i++)
+        switch (aAnalysisInfo.arrayOfNumbersOfErrors.get(i)){
+            case 701:   outputStr+="Error(701):: No elements of grammar!\n"; break;
+            case 702:   outputStr+="Error(702):: Conflict brackets\n"; break;
+            case 703:   outputStr+="Error(703):: Not the last element in the grammar\n";break;
+            case 704:   outputStr+="Error(704):: Not Enough bracket\n"; break;
+            case 7061:  outputStr+="Error(7061):: The first character is not on their site\n";break;
+            case 705:   outputStr+="Error(705):: Short of the mark after an argument\n"; break;
+            case 706:   outputStr+="Error(706):: Not true location of an item of expression\n";break;
+            case 800:   outputStr+="Error(800):: Not enough of the expression between the brackets {(..(}.\n";break;
+            case 801:   outputStr+="Error(801):: Not enough of the expression between the brackets {)..)}.\n"; break;
+            case 802:   outputStr+="Error(802):: Not true location of the argument between {)..(}\n"; break;
+            case 803:   outputStr+="Error(803):: After the decimal point should go argument, remove sign! { , ( or ,<argument>.. }\n";break;
+            case 804:   outputStr+="Error(804):: After the brackets must be present and sign the argument{ )[sign]<argument> }\n"; break;
+            case 805:   outputStr+="Error(805):: Solve the conflict between the brackets {(<argument>[sign]( }\n"; break;
+            case 806:   outputStr+="Error(806):: Resolve the conflict between the brackets {)[sign]<argument>)\n";  break;
+
+        }
+        return outputStr;
     }
 }

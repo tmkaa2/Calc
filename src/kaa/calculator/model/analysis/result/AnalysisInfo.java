@@ -16,4 +16,5 @@ public class AnalysisInfo {
     public ArrayList<Integer> arrayOfNumbersOfGrammarRules;
     public String[] arrayOflexemesWithCustomExpression;
     public boolean errorFlag;
+    public String[] firstArrayOfLexemesWithUserExpression;
 }
