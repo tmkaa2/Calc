@@ -35,6 +35,7 @@ public class RPNComputer {
         }
         return Double.parseDouble(stack.pop());
     }
+
     private  boolean checkNum(char aStr){
         switch (aStr){
             case '0':
@@ -127,18 +128,4 @@ public class RPNComputer {
         }
         return -777;
     }
-/*
-    public static void main(String[] args) {
-        RPN tets = new RPN();
-        RPNComputer com = new RPNComputer();
-        String[]  ex ={"max","(","25",",","15",")"};
-        for (String ss: ex){
-            System.out.print(ss+" ");
-        }
-        System.out.println("");
-
-        ArrayList<String> ex1=tets.convertToRPN2(ex);
-        System.out.println(com.computing(ex1));
-    }
-    */
 }
