@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Brackets {
     public static void main(String[] aa){
-        ArrayList<Bukva[]> arrayOfGrammarRules = new ArrayList<Bukva[]>();
+        ArrayList<RootRule[]> arrayOfGrammarRules = new ArrayList<RootRule[]>();
         I[] iArray =  {new I("0","AN"),new I("1","AN"),new I("2","AN"),new I("3","AN"),new I("4","AN"),new I("5","AN"),
                 new I("6","AN"),new I("7","AN"),new I("8","AN"),new I("9","AN"),new I("0","AN"),new I("1","AN"),
                 new I("min","AM"),new I("max","AM"),new I("^","AK"),new I("sqrt","AK"),new I("(","G")
@@ -41,7 +41,7 @@ public class Brackets {
       //  G[] gArray = { new G("(","A)A(",ture)};
         J[] jArray = { new J("(",")A(",true)};
         Z[] zArray = { new Z("(",")N,N(",true)};
-        Bukva[] bukvaArray = {new Bukva(",",",",""),new Bukva("(","(",""),new Bukva(")",")","")};
+        RootRule[] rootRuleArray = {new RootRule(",",",",""),new RootRule("(","(",""),new RootRule(")",")","")};
 
         arrayOfGrammarRules.add(iArray);
         arrayOfGrammarRules.add(aArray);
@@ -52,17 +52,17 @@ public class Brackets {
         //arrayOfGrammarRules.add(gArray);
         arrayOfGrammarRules.add(jArray);
         arrayOfGrammarRules.add(zArray);
-        arrayOfGrammarRules.add(bukvaArray);
+        arrayOfGrammarRules.add(rootRuleArray);
 
         System.out.println("KAa");
 
         //for(int i=0; i<arrayOfGrammarRules.size();i++){
-            //Bukva ss = (Bukva)arrayOfGrammarRules.get(i);
+            //RootRule ss = (RootRule)arrayOfGrammarRules.get(i);
         //    System.out.println("sss");
         //}
 
 
-        for (Bukva[] row : arrayOfGrammarRules) {
+        for (RootRule[] row : arrayOfGrammarRules) {
             System.out.println(row.length+" : "+row[0].str);
         } //
         

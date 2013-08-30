@@ -1,5 +1,5 @@
 
-package kaa.calculator.controler.analiz.manipulations.expression;
+package kaa.calculator.controller.analysis.manipulations.expression;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,16 +28,16 @@ public class SplitExpressionInArrayList {
                            ((int)inputString.charAt(i))<58)){
                        
                        HelperSplitExpression lexem=parsInt(inputString,i);
-                       resultString+=lexem.tempNum;
-                       i=lexem.index;
+                       resultString+= lexem.getTempNum();
+                       i= lexem.getIndex();
                        continue;
                    }
                    if(((int)inputString.charAt(i)>96 && 
                            ((int)inputString.charAt(i))<123)){
                        
                        HelperSplitExpression lexem=parsSubString(inputString,i);
-                       resultString+=lexem.tempNum;
-                       i=lexem.index;
+                       resultString+= lexem.getTempNum();
+                       i= lexem.getIndex();
                        continue;
                    }
                     
@@ -47,42 +47,42 @@ public class SplitExpressionInArrayList {
     }
     
      private static HelperSplitExpression parsInt(String str, int index){
-         HelperSplitExpression lexem = new HelperSplitExpression();
-         lexem.index=index;
-         lexem.tempNum="";
+         HelperSplitExpression lexeme = new HelperSplitExpression();
+         lexeme.setIndex(index);
+         lexeme.setTempNum("");
          
          for (int i = index; i < str.length(); i++) {
              if(((int)str.charAt(i)>47 && ((int)str.charAt(i))<58)){
                 
-                lexem.tempNum+=str.charAt(i);
-                lexem.index=i;
+                lexeme.setTempNum(lexeme.getTempNum() + str.charAt(i));
+                lexeme.setIndex(i);
              }
              else{
-                lexem.tempNum+="!"; 
-                 return lexem;
+                lexeme.setTempNum(lexeme.getTempNum() + "!");
+                 return lexeme;
              }
          }
-         return lexem;
+         return lexeme;
      }
      
      private static HelperSplitExpression parsSubString(String str, int index){
        
-         HelperSplitExpression lexem = new HelperSplitExpression();
-         lexem.index=index;
-         lexem.tempNum="";
+         HelperSplitExpression lexeme = new HelperSplitExpression();
+         lexeme.setIndex(index);
+         lexeme.setTempNum("");
          
          for (int i = index; i < str.length(); i++) {
              if(((int)str.charAt(i)>96 && ((int)str.charAt(i))<123)){
                 
-                lexem.tempNum+=str.charAt(i);
-                lexem.index=i;
+                lexeme.setTempNum(lexeme.getTempNum() + str.charAt(i));
+                lexeme.setIndex(i);
              }
              else{
-                lexem.tempNum+="!"; 
-                 return lexem;
+                lexeme.setTempNum(lexeme.getTempNum() + "!");
+                 return lexeme;
              }
          }
-         return lexem;       
+         return lexeme;
      }
      // Add the "$" symbol  to the end  string and places where's this to need 
      public static String[] addToStrinArray$(String[] aArrayString)

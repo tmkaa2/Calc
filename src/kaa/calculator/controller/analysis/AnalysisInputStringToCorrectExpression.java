@@ -1,55 +1,54 @@
 
-package kaa.calculator.controler.analiz;
+package kaa.calculator.controller.analysis;
 
 
 
-import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
+import kaa.calculator.controller.analysis.manipulations.expression.SplitExpressionInArrayList;
 import kaa.calculator.model.grammar.rules.*;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
-import kaa.calculator.controler.analiz.manipulations.expression.RefactoringStrings;
+import kaa.calculator.controller.analysis.manipulations.expression.RefactoringStrings;
 import kaa.calculator.model.SetGrammar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AnalysisInputStringToCorrectExpressionn {
+public class AnalysisInputStringToCorrectExpression {
 
-    private  ArrayList<Bukva[]> arrayOfGrammarRules;
-    private  ArrayList<Integer[]> view = new ArrayList<Integer[]>();
+    private ArrayList<RootRule[]> arrayOfGrammarRules;
+    private ArrayList<Integer[]> view = new ArrayList<Integer[]>();
     private ArrayList<Integer> arrayOfNumbersOfGrammarRules;
     private String[] arrayOfLexemesWithUserExpression;
     private String userExpression;
     private String start= "I";
     private AnalysisInfo analysisInfo;
     
-    public AnalysisInputStringToCorrectExpressionn(String aUserExpression)
+    public AnalysisInputStringToCorrectExpression(String aUserExpression)
     {
         userExpression = aUserExpression;
         arrayOfNumbersOfGrammarRules = new ArrayList<Integer>();
         analysisInfo = new AnalysisInfo();
-        analysisInfo.start=aUserExpression;
+        analysisInfo.setStart(aUserExpression);
     }
 
     public AnalysisInfo runAnalysisExpression()
     {
         initGrammarRules();
         arrayOfLexemesWithUserExpression = SplitExpressionInArrayList.ParsStringPart(userExpression);
-        analysisInfo.firstArrayOfLexemesWithUserExpression= SplitExpressionInArrayList.ParsStringPart(userExpression);
-        checkExpressionOnTheErrorsPartOne(arrayOfLexemesWithUserExpression, new SetGrammar(new ArrayList<String>(Arrays.asList("+", "-", "/", "*", "0", "1", "2",
-                "3", "4", "5", "6", "7", "8", "9",
-                "(", ")", "min", "max", "^", "sqrt", ","
-        ))));
-        if(analysisInfo.errorFlag)
+        analysisInfo.setFirstArrayOfLexemesWithUserExpression(SplitExpressionInArrayList.ParsStringPart(userExpression));
+        checkExpressionOnTheErrorsPartOne(arrayOfLexemesWithUserExpression, new SetGrammar(new ArrayList<String>(
+           Arrays.asList("+","-","/","*","0","1","2","3","4","5","6","7","8","9","(",")","min","max","^","sqrt",","))));
+        if(analysisInfo.isErrorFlag())
             return analysisInfo;
+
         checkExpressionOnTheErrorsPartTwo(arrayOfLexemesWithUserExpression);
         arrayOfLexemesWithUserExpression = SplitExpressionInArrayList.addToStrinArray$(arrayOfLexemesWithUserExpression);
 
-        if(analysisInfo.errorFlag ==false){
+        if(analysisInfo.isErrorFlag() ==false){
             recognitionGrammarOfExpression();
         }
 
-        analysisInfo.arrayOfNumbersOfGrammarRules = arrayOfNumbersOfGrammarRules;
-        analysisInfo.arrayOflexemesWithCustomExpression = arrayOfLexemesWithUserExpression;
+        analysisInfo.setArrayOfNumbersOfGrammarRules(arrayOfNumbersOfGrammarRules);
+        analysisInfo.setArrayOflexemesWithCustomExpression(arrayOfLexemesWithUserExpression);
 
         return analysisInfo;
     }
@@ -66,7 +65,7 @@ public class AnalysisInputStringToCorrectExpressionn {
 
     private void initGrammarRules()
     {
-        arrayOfGrammarRules = new ArrayList<Bukva[]>();
+        arrayOfGrammarRules = new ArrayList<RootRule[]>();
         I[] iArray = { new I("0","AN"),new I("1","AN"),new I("2","AN"),new I("3","AN"),new I("4","AN"),
                 new I("5","AN"),new I("6","AN"),new I("7","AN"),new I("8","AN"),new I("9","AN"),
                 new I("min","AM"),new I("max","AM"),
@@ -96,13 +95,13 @@ public class AnalysisInputStringToCorrectExpressionn {
         //Z[] zArray = { new Z("(",")N,N(",true)};
         Z[] zArray = { new Z("(",")A,A(",true)};
 
-        Bukva[] t1 = { new Bukva(",",",","")};
-        Bukva[] t2 = { new Bukva("(","(","")};
-        Bukva[] t3 = { new Bukva(")",")","")};
+        RootRule[] t1 = { new RootRule(",",",","")};
+        RootRule[] t2 = { new RootRule("(","(","")};
+        RootRule[] t3 = { new RootRule(")",")","")};
 
-        Bukva[] t4 = { new Bukva("m","m","")};
-        Bukva[] t5 = { new Bukva("^","^","")};
-        Bukva[] t6 = { new Bukva("s","s","")};
+        RootRule[] t4 = { new RootRule("m","m","")};
+        RootRule[] t5 = { new RootRule("^","^","")};
+        RootRule[] t6 = { new RootRule("s","s","")};
 
         arrayOfGrammarRules.add(iArray);
         arrayOfGrammarRules.add(aArray);
@@ -121,7 +120,7 @@ public class AnalysisInputStringToCorrectExpressionn {
         arrayOfGrammarRules.add(t6);
     }
 
-    // Start (Проверка на коректность грамматики и скобок)
+    // Check for correct grammar and brackets (Start)
     private void checkExpressionOnTheErrorsPartOne(String[] inputExpression, SetGrammar grammarElements)
     {
         boolean counterErrors=true;
@@ -141,10 +140,10 @@ public class AnalysisInputStringToCorrectExpressionn {
 
         for (int i=0;i<modifiedInpExpr.length-1;i++){
             if(counterErrors==false){
-                System.err.println("Error(701)::нет элемента в грамматике");
-                analysisInfo.arrayOfNumbersOfErrors.add(701);
-                analysisInfo.errorFlag =true;
-                analysisInfo.arrayIndexesOfIncorrectLexeme.add(i);
+                System.err.println("Error(701)");
+                analysisInfo.getArrayOfNumbersOfErrors().add(701);
+                analysisInfo.setErrorFlag(true);
+                analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i);
                 BracersFlag=1;
                 break;
             }else{
@@ -152,10 +151,10 @@ public class AnalysisInputStringToCorrectExpressionn {
                 for (int j=0;j<grammarElements.getSet().size();j++){
                     // Do are brackets enter correct?
                     if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+1].equals("(") ||modifiedInpExpr[i].equals("(") && modifiedInpExpr[i+1].equals(")") ){
-                        System.err.println("Error(702)::конфликт скобок");
-                        analysisInfo.errorFlag =true;
-                        analysisInfo.arrayOfNumbersOfErrors.add(702);
-                        analysisInfo.arrayIndexesOfIncorrectLexeme.add(i);
+                        System.err.println("Error(702)");
+                        analysisInfo.setErrorFlag(true);
+                        analysisInfo.getArrayOfNumbersOfErrors().add(702);
+                        analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i);
                         i= modifiedInpExpr.length;
                         BracersFlag=1;
                         counterErrors=true;
@@ -183,18 +182,18 @@ public class AnalysisInputStringToCorrectExpressionn {
         }
 
         if(counterErrors==false){
-            System.err.println("Error(703)::последнего  элемента нет в грамматике");
-            analysisInfo.arrayOfNumbersOfErrors.add(703);
-            analysisInfo.errorFlag =true;
-            analysisInfo.arrayIndexesOfIncorrectLexeme.add(inputExpression.length - 1);
+            System.err.println("Error(703)");
+            analysisInfo.getArrayOfNumbersOfErrors().add(703);
+            analysisInfo.setErrorFlag(true);
+            analysisInfo.getArrayIndexesOfIncorrectLexeme().add(inputExpression.length - 1);
             BracersFlag=1;
         }
 
         if(counterBreaks != 0 && BracersFlag==0){
-            System.err.println("Error(704)::Нехватает скобок(и)");
-            analysisInfo.arrayOfNumbersOfErrors.add(704);
-            analysisInfo.errorFlag =true;
-            analysisInfo.arrayIndexesOfIncorrectLexeme.add(0);
+            System.err.println("Error(704)");
+            analysisInfo.getArrayOfNumbersOfErrors().add(704);
+            analysisInfo.setErrorFlag(true);
+            analysisInfo.getArrayIndexesOfIncorrectLexeme().add(0);
         }
     }
 
@@ -207,9 +206,9 @@ public class AnalysisInputStringToCorrectExpressionn {
         }
         return inputExpression;
     }
-    // end (Проверка на коректность грамматики и скобок)
+    // Check for correct grammar and brackets (end)
 
-    // Распознавание грамматики (Start)
+    // Recognition grammar(Start)
     private void recognitionGrammarOfExpression()
     {
         boolean sel=false;
@@ -229,7 +228,6 @@ public class AnalysisInputStringToCorrectExpressionn {
                             sel=true;
                             f=0;
                             break exit1;
-
                         }
                     }
                     break;
@@ -237,22 +235,22 @@ public class AnalysisInputStringToCorrectExpressionn {
             }
 
         if(sel==false) {
-            System.err.println("Error(7061):: Первый символ находится не на свое месте!");
-            analysisInfo.arrayOfNumbersOfErrors.add(7061);
-            analysisInfo.arrayIndexesOfIncorrectLexeme.add(0);
+            System.err.println("Error(7061)");
+            analysisInfo.getArrayOfNumbersOfErrors().add(7061);
+            analysisInfo.getArrayIndexesOfIncorrectLexeme().add(0);
             return;
         }
-        //Последующие замены
+        // Subsequent replacement
     exitT:for (int i = 0; i < arrayOfLexemesWithUserExpression.length; i++) {
         toNext:for (int f = 0; f < arrayOfGrammarRules.size(); f++) {
                 if(RefactoringStrings.getLastCharacter(start) == arrayOfGrammarRules.get(f)[0].str.charAt(0) &&
                         arrayOfGrammarRules.get(f)[0].str.charAt(0) != 'I'){
                     for (int j = 0; j < arrayOfGrammarRules.get(f).length; j++) {
                         sel=false;
-                        //Правила со звездочкой заменяют модифицируют строку start
+                        //Rules are modified with an asterisk replaces the string start
                         if(arrayOfLexemesWithUserExpression[i].charAt(0)== arrayOfGrammarRules.get(f)[j].complect.charAt(0)
                                 && arrayOfGrammarRules.get(f)[j].shiftFlag == true){
-                            //Для случая со знаком
+                            //For the case of a signed
                             if((arrayOfLexemesWithUserExpression[i].charAt(0) == '*'
                                     || arrayOfLexemesWithUserExpression[i].charAt(0) == '/'
                                     || arrayOfLexemesWithUserExpression[i].charAt(0) == '-'
@@ -270,15 +268,14 @@ public class AnalysisInputStringToCorrectExpressionn {
                                     f=0;
                                     break toNext;
                                 }else{
-                                    System.err.println("Error(705)::Нехватает аргумента после знака");
-                                    analysisInfo.arrayOfNumbersOfErrors.add(705);
-                                    analysisInfo.errorFlag =true;
-                                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(i);
+                                    System.err.println("Error(705)");
+                                    analysisInfo.getArrayOfNumbersOfErrors().add(705);
+                                    analysisInfo.setErrorFlag(true);
+                                    analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i);
                                     //break exitT;
                                     return;
                                 }
-                                //Правила модифицируют строку start и переходять на
-                                // следующий элемент массива лексем
+                                //Rules are modified row start and moves to the next element of the array of tokens
                             }
                             else
                             {
@@ -305,11 +302,10 @@ public class AnalysisInputStringToCorrectExpressionn {
                         }
                     }
                     if(sel==false) {
-                        System.err.println("Error(706):: Не верное расположения элемента выражения");
-                        analysisInfo.arrayOfNumbersOfErrors.add(706);
-                        analysisInfo.errorFlag =true;
-                        analysisInfo.arrayIndexesOfIncorrectLexeme.add(i);
-                        //break exitT;
+                        System.err.println("Error(706)");
+                        analysisInfo.getArrayOfNumbersOfErrors().add(706);
+                        analysisInfo.setErrorFlag(true);
+                        analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i);
                         System.err.println(start);
                         return;
                     }
@@ -361,9 +357,9 @@ public class AnalysisInputStringToCorrectExpressionn {
         }
         return aStart;
     }
-    // Распознавание грамматики (End)
+    // Recognition grammar (End)
 
-    // Исключительная ситуации Начало
+    // Checking the second level (Start)
     private void checkExpressionOnTheErrorsPartTwo(String[] inputExpression)
     {
         String[] modifiedInpExpr= helpCheckErrorsPartOne(inputExpression);
@@ -373,21 +369,21 @@ public class AnalysisInputStringToCorrectExpressionn {
                 if(checkCharacterFromSetOfOne(modifiedInpExpr[i + 1].charAt(0))){
                     System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
                     System.err.println("Error(800).");
-                    analysisInfo.arrayOfNumbersOfErrors.add(800);
-                    analysisInfo.errorFlag =true;
-                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                    analysisInfo.getArrayOfNumbersOfErrors().add(800);
+                    analysisInfo.setErrorFlag(true);
+                    analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i + 1);
                     return;
                 }
             }
 
             if(modifiedInpExpr[i].equals(")") && modifiedInpExpr[i+2].equals(")") ){
                     if(checkCharacterFromSetOfFour(modifiedInpExpr[i + 1].charAt(0))){
-                        if(!sdg(i+2,modifiedInpExpr)){
+                        if(!helpsToCheckTheExpressionOfOneCharacter(i + 2, modifiedInpExpr)){
                             System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
                             System.err.println("Error(801).");
-                            analysisInfo.arrayOfNumbersOfErrors.add(801);
-                            analysisInfo.errorFlag =true;
-                            analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                            analysisInfo.getArrayOfNumbersOfErrors().add(801);
+                            analysisInfo.setErrorFlag(true);
+                            analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i + 1);
                             return;
                         }
                     }
@@ -398,9 +394,9 @@ public class AnalysisInputStringToCorrectExpressionn {
                     if(checkCharacterFromSetOfTwo(modifiedInpExpr[i + 1].charAt(0))){
                         System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]);
                         System.err.println("Error(802).");
-                        analysisInfo.arrayOfNumbersOfErrors.add(802);
-                        analysisInfo.errorFlag =true;
-                        analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                        analysisInfo.getArrayOfNumbersOfErrors().add(802);
+                        analysisInfo.setErrorFlag(true);
+                        analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i + 1);
                         return;
                     }
             }
@@ -410,25 +406,23 @@ public class AnalysisInputStringToCorrectExpressionn {
             if(modifiedInpExpr[i].equals(",") && checkCharacterFromSetOfThree(modifiedInpExpr[i + 1].charAt(0))){
                 System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1].charAt(0));
                 System.err.println("Error(803).");
-                analysisInfo.arrayOfNumbersOfErrors.add(803);
-                analysisInfo.errorFlag =true;
-                analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+1);
+                analysisInfo.getArrayOfNumbersOfErrors().add(803);
+                analysisInfo.setErrorFlag(true);
+                analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i);
                 return;
             }
         }
 
-      //  if(modifiedInpExpr.length > 2){
         for(int z=modifiedInpExpr.length-1;1<z;z--){
             if(modifiedInpExpr[z-1].equals(")") && checkCharacterFromSetOfTwo(modifiedInpExpr[z].charAt(0))){
-                if(!sdg(z,modifiedInpExpr)){
+                if(!helpsToCheckTheExpressionOfOneCharacter(z, modifiedInpExpr)){
                     System.err.println(modifiedInpExpr[z-1]+":"+modifiedInpExpr[z]);
                     System.err.println("Error(804).");
-                    analysisInfo.arrayOfNumbersOfErrors.add(804);
-                    analysisInfo.errorFlag =true;
-                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(modifiedInpExpr.length);
+                    analysisInfo.getArrayOfNumbersOfErrors().add(804);
+                    analysisInfo.setErrorFlag(true);
+                    analysisInfo.getArrayIndexesOfIncorrectLexeme().add(modifiedInpExpr.length);
                     return;
                 }
-
             }
         }
 
@@ -439,9 +433,9 @@ public class AnalysisInputStringToCorrectExpressionn {
                     System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]
                                                                                   +":"+modifiedInpExpr[i+3]);
                     System.err.println("Error(805).");
-                    analysisInfo.arrayOfNumbersOfErrors.add(805);
-                    analysisInfo.errorFlag =true;
-                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                    analysisInfo.getArrayOfNumbersOfErrors().add(805);
+                    analysisInfo.setErrorFlag(true);
+                    analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i + 2);
                     return;
                 }
             }
@@ -454,9 +448,9 @@ public class AnalysisInputStringToCorrectExpressionn {
                     System.err.println(modifiedInpExpr[i]+":"+modifiedInpExpr[i+1]+":"+modifiedInpExpr[i+2]
                             +":"+modifiedInpExpr[i+3]);
                     System.err.println("Error(806).");
-                    analysisInfo.arrayOfNumbersOfErrors.add(805);
-                    analysisInfo.errorFlag =true;
-                    analysisInfo.arrayIndexesOfIncorrectLexeme.add(i+2);
+                    analysisInfo.getArrayOfNumbersOfErrors().add(805);
+                    analysisInfo.setErrorFlag(true);
+                    analysisInfo.getArrayIndexesOfIncorrectLexeme().add(i + 2);
                     return;
                 }
             }
@@ -631,7 +625,7 @@ public class AnalysisInputStringToCorrectExpressionn {
         return false;
     }
 
-    private boolean sdg(int start,String[] modifiedInpExpr){
+    private boolean helpsToCheckTheExpressionOfOneCharacter(int start, String[] modifiedInpExpr){
         int counterBracketsL= 0;
         int counterBracketsR= 0;
         int flag2 =0;
@@ -655,7 +649,7 @@ public class AnalysisInputStringToCorrectExpressionn {
 
             if(modifiedInpExpr[i].equals("^") && counterBracketsL==counterBracketsR && flag){
                 if(flag2 != flag3){
-                    System.err.println("Error(605). Дубликат )ел");
+                    System.err.println("Error(605)");
                     return false;
                 }else
                 return true;
@@ -664,7 +658,7 @@ public class AnalysisInputStringToCorrectExpressionn {
         }
         return false;
     }
-    // Исключительная ситуации Конец
+    //  Checking the second level (End)
 }
 
 

@@ -1,9 +1,9 @@
 package kaa.calculator.view.frame;
 
-import kaa.calculator.controler.button.ButtonListener;
+import kaa.calculator.controller.button.ButtonListener;
 import kaa.calculator.view.panel.MainPanel;
-
 import javax.swing.*;
+
 public class MainFrame extends JFrame{
     private JLabel labelExpression;
     private JLabel labelMsgError;
@@ -13,13 +13,9 @@ public class MainFrame extends JFrame{
     private JButton result;
     private MainPanel panel;
 
-
-
     public MainFrame(){
         setTitle("String calculator[TMKAA]");
-        setSize(350, 150);
-
-
+        setSize(550, 150);
 
         labelExpression = new JLabel("Expression: ", JLabel.TRAILING);
         labelMsgError = new JLabel("Error msg: ", JLabel.TRAILING);
@@ -31,7 +27,6 @@ public class MainFrame extends JFrame{
         infoScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         result.addActionListener(new ButtonListener());
-
 
         panel = new MainPanel( labelExpression,labelMsgError, getJtfExpression(),jtfResult,infoScroller, result);
         setContentPane(panel);

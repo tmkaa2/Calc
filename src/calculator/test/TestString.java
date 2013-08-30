@@ -4,8 +4,8 @@
  */
 package calculator.test;
 
-import kaa.calculator.controler.analiz.AnalysisInputStringToCorrectExpressionn;
-import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
+import kaa.calculator.controller.analysis.AnalysisInputStringToCorrectExpression;
+import kaa.calculator.controller.analysis.manipulations.expression.SplitExpressionInArrayList;
 import kaa.calculator.model.SetGrammar;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
 
@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class TestString {
    public static  void  main(String[] arg){
-       AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn("^(h5h)2");
+       AnalysisInputStringToCorrectExpression analiz = new AnalysisInputStringToCorrectExpression("^(h5h)2");
        AnalysisInfo rez=analiz.runAnalysisExpression();
 
        //temp Start

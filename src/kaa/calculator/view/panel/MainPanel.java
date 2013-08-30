@@ -15,9 +15,9 @@ public class MainPanel extends JPanel {
 
         //Lay out the panel.
         SpringUtilities.makeCompactGrid(this,
-                3, 2, //rows, cols
-                6, 6,        //initX, initY
-                6, 6);       //xPad, yPad
+                3, 2,         //rows, cols
+                6, 6,         //initX, initY
+                6, 6);        //xPad, yPad
         setOpaque(true);
     }
 }

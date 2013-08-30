@@ -1,6 +1,6 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.AnalysisInputStringToCorrectExpressionn;
+import kaa.calculator.controller.analysis.AnalysisInputStringToCorrectExpression;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
 
 /**
@@ -12,13 +12,13 @@ import kaa.calculator.model.analysis.result.AnalysisInfo;
  */
 public class TetsSet {
     public static void main(String[] arg){
-        AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn("(sqrt(5))+(+min(5,6))");
+        AnalysisInputStringToCorrectExpression analiz = new AnalysisInputStringToCorrectExpression("(sqrt(5))+(min(5,6))");
         AnalysisInfo analysisInfo = analiz.runAnalysisExpression();
-        String[] lexem = analysisInfo.arrayOflexemesWithCustomExpression;
-        if(analysisInfo.errorFlag == true)
-            System.err.println("Error:"+ analysisInfo.errorFlag);
+        String[] lexem = analysisInfo.getArrayOflexemesWithCustomExpression();
+        if(analysisInfo.isErrorFlag() == true)
+            System.err.println("Error:"+ analysisInfo.isErrorFlag());
         else
-            System.out.println("Error:"+ analysisInfo.errorFlag);
+            System.out.println("Error:"+ analysisInfo.isErrorFlag());
 
         analiz.showListUsedRules();
     }

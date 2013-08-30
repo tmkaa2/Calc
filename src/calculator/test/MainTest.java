@@ -1,12 +1,12 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.manipulations.expression.SplitExpressionInArrayList;
+import kaa.calculator.controller.analysis.manipulations.expression.SplitExpressionInArrayList;
 import kaa.calculator.model.grammar.rules.*;
-import kaa.calculator.controler.analiz.manipulations.expression.RefactoringStrings;
+import kaa.calculator.controller.analysis.manipulations.expression.RefactoringStrings;
 import java.util.ArrayList;
 
 public class MainTest {
-    ArrayList<Bukva> listRulse ;
+    ArrayList<RootRule> listRulse ;
             
     public static void main(String[] args) {
        MainTest obj = new MainTest();
@@ -21,7 +21,7 @@ public class MainTest {
        
        
        String start= "I";
-       ArrayList<Bukva> list = obj.getList();
+       ArrayList<RootRule> list = obj.getList();
        //тестовый
        ArrayList<Integer> ListUsedRules = new ArrayList<Integer>();
        
@@ -107,11 +107,11 @@ public class MainTest {
           
           return aStart;
       }
-    public ArrayList<Bukva> getList(){
+    public ArrayList<RootRule> getList(){
         return listRulse;
     } /*
     public void init(){
-        listRulse = new ArrayList<Bukva>();
+        listRulse = new ArrayList<RootRule>();
         listRulse.add(new I("(","AS"));      //0
         listRulse.add(new I("min","AM"));    //1
         listRulse.add(new I("max","AM"));    //2
@@ -194,18 +194,18 @@ public class MainTest {
         listRulse.add(new Y("-",""));        //68
         listRulse.add(new Y("/",""));        //69
         listRulse.add(new Y("*",""));        //70
-        listRulse.add(new Bukva(",",",",""));//71
+        listRulse.add(new RootRule(",",",",""));//71
         listRulse.add(new A("$",""));   //72
         /*
-        for (Bukva ls : list) {
+        for (RootRule ls : list) {
             System.out.print(ls.manipulations+" ");
         }
         System.out.println("");
-        for (Bukva ls : list) {
+        for (RootRule ls : list) {
             System.out.print(ls.complect+" ");
         }
         System.out.println("");
-        for (Bukva ls : list) {
+        for (RootRule ls : list) {
             System.out.print(ls.zamena+" ");
     
     }

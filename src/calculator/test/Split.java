@@ -1,6 +1,6 @@
 package calculator.test;
 
-import kaa.calculator.controler.analiz.manipulations.expression.HelperSplitExpression;
+import kaa.calculator.controller.analysis.manipulations.expression.HelperSplitExpression;
 
 public class Split {
     public static void main(String[] args) {
@@ -29,16 +29,16 @@ public class Split {
                            ((int)inputString.charAt(i))<58)){
                        
                        HelperSplitExpression lexem=parsInt(inputString,i);
-                       resultString+=lexem.tempNum;
-                       i=lexem.index;
+                       resultString+= lexem.getTempNum();
+                       i= lexem.getIndex();
                        continue;
                    }
                    if(((int)inputString.charAt(i)>96 && 
                            ((int)inputString.charAt(i))<123)){
                        
                        HelperSplitExpression lexem=parsSubString(inputString,i);
-                       resultString+=lexem.tempNum;
-                       i=lexem.index;
+                       resultString+= lexem.getTempNum();
+                       i= lexem.getIndex();
                        continue;
                    }
                     
@@ -49,17 +49,17 @@ public class Split {
     
      private static HelperSplitExpression parsInt(String str, int index){
          HelperSplitExpression lexem = new HelperSplitExpression();
-         lexem.index=index;
-         lexem.tempNum="";
+         lexem.setIndex(index);
+         lexem.setTempNum("");
          
          for (int i = index; i < str.length(); i++) {
              if(((int)str.charAt(i)>47 && ((int)str.charAt(i))<58)){
                 
-                lexem.tempNum+=str.charAt(i);
-                lexem.index=i;
+                lexem.setTempNum(lexem.getTempNum() + str.charAt(i));
+                lexem.setIndex(i);
              }
              else{
-                lexem.tempNum+="!"; 
+                lexem.setTempNum(lexem.getTempNum() + "!");
                  return lexem;
              }
          }
@@ -69,17 +69,17 @@ public class Split {
      private static HelperSplitExpression parsSubString(String str, int index){
        
          HelperSplitExpression lexem = new HelperSplitExpression();
-         lexem.index=index;
-         lexem.tempNum="";
+         lexem.setIndex(index);
+         lexem.setTempNum("");
          
          for (int i = index; i < str.length(); i++) {
              if(((int)str.charAt(i)>96 && ((int)str.charAt(i))<123)){
                 
-                lexem.tempNum+=str.charAt(i);
-                lexem.index=i;
+                lexem.setTempNum(lexem.getTempNum() + str.charAt(i));
+                lexem.setIndex(i);
              }
              else{
-                lexem.tempNum+="!"; 
+                lexem.setTempNum(lexem.getTempNum() + "!");
                  return lexem;
              }
          }

@@ -1,4 +1,4 @@
-package kaa.calculator.controler.form;
+package kaa.calculator.controller.frame;
 
 import kaa.calculator.view.frame.MainFrame;
 

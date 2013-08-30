@@ -13,7 +13,7 @@ import java.awt.*;
 
 /**
  * A 1.4 file that provides utility methods for
- * creating form- or grid-style layouts with SpringLayout.
+ * creating frame- or grid-style layouts with SpringLayout.
  * These utilities are used by several programs, such as
  * SpringBox and SpringCompactGrid.
  */

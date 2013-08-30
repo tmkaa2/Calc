@@ -1,7 +1,6 @@
-package kaa.calculator.controler.rpn.computing;
+package kaa.calculator.controller.rpn.computing;
 
-import kaa.calculator.controler.rpn.RPN;
-import kaa.calculator.controler.rpn.stack.StackList;
+import kaa.calculator.controller.rpn.stack.StackList;
 
 import java.util.ArrayList;
 

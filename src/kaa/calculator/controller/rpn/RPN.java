@@ -1,9 +1,9 @@
-package kaa.calculator.controler.rpn;
+package kaa.calculator.controller.rpn;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import kaa.calculator.controler.rpn.stack.StackList;
+import kaa.calculator.controller.rpn.stack.StackList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,13 +16,13 @@ import kaa.calculator.controler.rpn.stack.StackList;
 public class RPN {
 
     private StackList<String> stuck;
-    private ArrayList<String> rpn;
+    private StackList<String> rpn;
     private String[] arrayOfLexemesWithUserExpression;
 
     public RPN()
     {
        stuck = new StackList<String>();
-       rpn = new ArrayList<String>();
+       rpn = new StackList<String>();
     }
 
     public ArrayList<String> convertToRPN2(String[] aArrayOfLexemesWithUserExpression)
@@ -32,17 +32,30 @@ public class RPN {
 
         for(int i=0;i<arrayOfLexemesWithUserExpression.length;i++){
 
-            if(checkNum(arrayOfLexemesWithUserExpression[i].charAt(0)))
-                rpn.add(arrayOfLexemesWithUserExpression[i]);
+            if(checkNum(arrayOfLexemesWithUserExpression[i].charAt(0))){
+                rpn.push(arrayOfLexemesWithUserExpression[i]);
+                continue;
+            }
 
             if(checkOperationsB(arrayOfLexemesWithUserExpression[i].charAt(0))){
                 if(stuck.size()!=0){
-                    while(checkPriorityOperations(arrayOfLexemesWithUserExpression[i].charAt(0))< checkPriorityOperations(stuck.getTopElement().charAt(0)) && !stuck.getTopElement().equals("(")){
+                    while(checkPriorityOperations(arrayOfLexemesWithUserExpression[i].charAt(0))< checkPriorityOperations(stuck.getTopElement().charAt(0)) && !stuck.getTopElement().equals("(") && stuck.getTopElement()!=null){
                         rpn.add(stuck.pop());
                         if(stuck.size()==0)
                             break;
                     }
-                    stuck.push(arrayOfLexemesWithUserExpression[i]);
+                    if(stuck.getTopElement()!= null){
+                        if(checkPriorityOperations(arrayOfLexemesWithUserExpression[i].charAt(0)) == checkPriorityOperations(stuck.getTopElement().charAt(0))  ) {
+                           // String outStuck = rpn.pop();
+                            rpn.push(stuck.pop());
+                           // rpn.push(outStuck);
+                            stuck.push(arrayOfLexemesWithUserExpression[i]);
+
+                        }else
+                            stuck.push(arrayOfLexemesWithUserExpression[i]);
+                    }else
+                        stuck.push(arrayOfLexemesWithUserExpression[i]);
+
                 }
                 else
                     stuck.push(arrayOfLexemesWithUserExpression[i]);
@@ -120,6 +133,26 @@ public class RPN {
         return -1;
     }
 
+    private int checkPriorityOperations2(char aStr){
+        switch (aStr){
+            case 'm':
+                return 6 ;
+            case '^':
+                return 5 ;
+            case 's':
+                return 4 ;
+            case '+':
+                return 3 ;
+            case '-':
+                return 2 ;
+            case '/':
+                return 1 ;
+            case '*':
+                return 1 ;
+        }
+        return -1;
+    }
+
     private boolean checkOperationsB(char aStr){
         switch (aStr){
             case 'm':
@@ -165,7 +198,7 @@ public class RPN {
         return stringList.toArray(new String[stringList.size()]);
     }
 
-   /*
+
     public static void main(String[] args) {
         RPN tets = new RPN();
         // ok1 ex ={"(","(","22","-","24",")","/","2","*","21","/","(","5","+","2",")",")"};
@@ -174,7 +207,7 @@ public class RPN {
         // ok1 ex ={"60","-","30","+","sqrt","(","4","*","(","12","-","4",")","/","(","20","-","18",")",")","/","4"};
         // ok1 ex ={"^","(","22","-","24","*","60","-","30",")","30","+","^","(","22","-","24",")","25","+","sqrt","(","4","*","(","12","-","4",")","/","(","20","-","18",")",")","/","4"};
         // ok1 ex ={"min","(","208","*","115","-","(","28","*","15","-","9",")",",","24","-","(","5","*","5","-","92",")",")","*","165","-","(","628","*","615","-","91",")"};
-        String[]  ex ={"min","(","208","*","115","-","(","28","*","15","-","9",")",",","24","-","(","5","*","5","-","92",")",")","*","165","-","(","628","*","615","-","91",")"};
+        String[]  ex ={"(","(","3","-","1",")","*","5","/","2","+","3",")","*","2","+","min","(","25",",","14",")"};
         for (String ss: ex){
             System.out.print(ss+" ");
         }
@@ -187,5 +220,5 @@ public class RPN {
             System.out.print("["+ss+"] ");
         }
     }
-     */
+
 }

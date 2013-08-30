@@ -8,7 +8,7 @@ package kaa.calculator.model.grammar.rules;
  *
  * @author Mr.Green
  */
-public class M extends Bukva{
+public class M extends RootRule {
         public M(String aComplect,String aZamena){
         complect=aComplect;
         zamena=aZamena;

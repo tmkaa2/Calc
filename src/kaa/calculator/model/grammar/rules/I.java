@@ -4,7 +4,7 @@
  */
 package kaa.calculator.model.grammar.rules;
 
-public class I extends Bukva{
+public class I extends RootRule {
     public I(String aComplect,String aZamena){
         complect=aComplect;
         zamena=aZamena;

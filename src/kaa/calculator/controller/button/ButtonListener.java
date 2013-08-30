@@ -1,13 +1,13 @@
-package kaa.calculator.controler.button;
+package kaa.calculator.controller.button;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import kaa.calculator.controler.analiz.AnalysisInputStringToCorrectExpressionn;
-import kaa.calculator.controler.form.ElementControlGeter;
-import kaa.calculator.controler.rpn.RPN;
-import kaa.calculator.controler.rpn.computing.RPNComputer;
+import kaa.calculator.controller.analysis.AnalysisInputStringToCorrectExpression;
+import kaa.calculator.controller.frame.ElementControlGeter;
+import kaa.calculator.controller.rpn.RPN;
+import kaa.calculator.controller.rpn.computing.RPNComputer;
 import kaa.calculator.model.analysis.result.AnalysisInfo;
 
 /**
@@ -22,19 +22,27 @@ public class ButtonListener extends ElementControlGeter implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         String inputExpression = frame.getJtfExpression().getText();
+        frame.getJtfResult().setText("");
+        frame.getJtaError().setText("");
+
+
         if(inputExpression.length() != 0){
             frame.getJtaError().setText("");
-            AnalysisInputStringToCorrectExpressionn analiz = new AnalysisInputStringToCorrectExpressionn(inputExpression);
-            AnalysisInfo analysisInfo = analiz.runAnalysisExpression();
-            if(analysisInfo.errorFlag){
-                    frame.getJtaError().setText(showError(analysisInfo));
+            AnalysisInputStringToCorrectExpression analysis = new AnalysisInputStringToCorrectExpression(inputExpression);
+            AnalysisInfo analysisInfo = analysis.runAnalysisExpression();
+            if(analysisInfo.isErrorFlag()){
+                    frame.getResult().setFocusable(false);
+                    frame.getJtaError().setFocusable(false);
+                    frame.getJtfResult().setFocusable(false);
+                    frame.getJtfExpression().setCaretPosition(calculationOfTheIndexErrors(analysisInfo,
+                                                              analysisInfo.getArrayIndexesOfIncorrectLexeme().get(1)));
                     frame.getJtfExpression().setFocusable(true);
-                    frame.getJtfExpression().setCaretPosition(analysisInfo.arrayIndexesOfIncorrectLexeme.get(0));
+                    frame.getJtaError().setText(returnErrorMessage(analysisInfo));
             }
             else{
                 RPN tets = new RPN();
                 RPNComputer com = new RPNComputer();
-                ArrayList<String> rptExpression=tets.convertToRPN2(analysisInfo.firstArrayOfLexemesWithUserExpression);
+                ArrayList<String> rptExpression=tets.convertToRPN2(analysisInfo.getFirstArrayOfLexemesWithUserExpression());
                 System.out.println(com.computing(rptExpression));
                 frame.getJtfResult().setText("="+String.valueOf(com.computing(rptExpression)));
             }
@@ -44,10 +52,10 @@ public class ButtonListener extends ElementControlGeter implements ActionListene
         }
 
     }
-    String showError(AnalysisInfo aAnalysisInfo){
+   private String returnErrorMessage(AnalysisInfo aAnalysisInfo){
         String outputStr="";
-        for (int i=0;i<aAnalysisInfo.arrayOfNumbersOfErrors.size();i++)
-        switch (aAnalysisInfo.arrayOfNumbersOfErrors.get(i)){
+        for (int i=0;i< aAnalysisInfo.getArrayOfNumbersOfErrors().size();i++)
+        switch (aAnalysisInfo.getArrayOfNumbersOfErrors().get(i)){
             case 701:   outputStr+="Error(701):: No elements of grammar!\n"; break;
             case 702:   outputStr+="Error(702):: Conflict brackets\n"; break;
             case 703:   outputStr+="Error(703):: Not the last element in the grammar\n";break;
@@ -62,8 +70,23 @@ public class ButtonListener extends ElementControlGeter implements ActionListene
             case 804:   outputStr+="Error(804):: After the brackets must be present and sign the argument{ )[sign]<argument> }\n"; break;
             case 805:   outputStr+="Error(805):: Solve the conflict between the brackets {(<argument>[sign]( }\n"; break;
             case 806:   outputStr+="Error(806):: Resolve the conflict between the brackets {)[sign]<argument>)\n";  break;
-
         }
         return outputStr;
+    }
+
+    private int calculationOfTheIndexErrors(AnalysisInfo aAnalysisInfo, int index){
+        int numberOfCharacters=0;
+        if(index>0 && aAnalysisInfo.getFirstArrayOfLexemesWithUserExpression().length>index){
+            for(int i=0;i<=index;i++){
+               numberOfCharacters+= aAnalysisInfo.getFirstArrayOfLexemesWithUserExpression()[i].length();
+            }
+        }
+
+        if(aAnalysisInfo.getFirstArrayOfLexemesWithUserExpression().length == index){
+                for(int i=0;i<=index-2;i++){
+                    numberOfCharacters+= aAnalysisInfo.getFirstArrayOfLexemesWithUserExpression()[i].length();
+                }
+        }
+     return numberOfCharacters;
     }
 }

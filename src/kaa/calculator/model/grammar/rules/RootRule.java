@@ -8,14 +8,14 @@ package kaa.calculator.model.grammar.rules;
  *
  * @author Mr.Green
  */
-public class Bukva {
-    public Bukva(String aStr,String aComplect,String aZamena){
+public class RootRule {
+    public RootRule(String aStr, String aComplect, String aZamena){
         str=aStr;
         complect=aComplect;
         zamena=aZamena;
         shiftFlag =false;
     }
-    public Bukva(){
+    public RootRule(){
         str="KAA";
         complect="";
         zamena="";

@@ -7,7 +7,7 @@ package kaa.calculator.model.grammar.rules;
  * Time: 20:44
  * To change this template use File | Settings | File Templates.
  */
-public class G extends Bukva {
+public class G extends RootRule {
     public G(String aComplect,String aZamena, boolean aStur){
         complect=aComplect;
         zamena=aZamena;
