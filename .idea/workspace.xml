@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69e0c8c4-6769-47f2-a9d3-9890c78806b3" name="Ert3&#10;(cherry-picked from 6c132dd)" comment="start work&#10;&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculator/test/MainTest.java" afterPath="$PROJECT_DIR$/src/calculator/test/MainTest.java" />
+      <change type="DELETED" beforePath="C:\Users\Mr.Green\Documents\GitHub\Calc\src\calculator\test\MainTest.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Calculator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -16,7 +17,7 @@
     <ignored path=".idea/encodings.xml" />
     <ignored path=".idea/compiler.xml" />
     <ignored path=".idea/.name" />
-    <file path="/Dummy.txt" changelist="69e0c8c4-6769-47f2-a9d3-9890c78806b3" time="1377928410688" ignored="false" />
+    <file path="/Dummy.txt" changelist="69e0c8c4-6769-47f2-a9d3-9890c78806b3" time="1377929308040" ignored="false" />
     <file path="/SetGrammar.java" changelist="5e6e3b81-e3a6-4609-9da6-ed72ebc96827" time="1376424457828" ignored="false" />
     <file path="/TetsSet.java" changelist="69e0c8c4-6769-47f2-a9d3-9890c78806b3" time="1377262010088" ignored="false" />
     <file path="/TestString.java" changelist="69e0c8c4-6769-47f2-a9d3-9890c78806b3" time="1377123103146" ignored="false" />
@@ -268,6 +269,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="calculator" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
